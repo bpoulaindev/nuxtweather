@@ -3,19 +3,18 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   typescript: {
     strict: true,
+    typeCheck: true,
   },
   postcss: {
     plugins: {
-        tailwindcss: {},
-        autoprefixer: {},
-    }
+      tailwindcss: {},
+      autoprefixer: {},
+    },
   },
-  css: [
-    '@/assets/css/main.css',
-  ],
+  css: ["@/assets/css/main.css"],
   devServer: {
     port: 3000,
-    host: 'https://localhost',
+    host: "https://localhost",
     https: true,
-  }
-})
+  },
+});
