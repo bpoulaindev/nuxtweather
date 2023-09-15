@@ -6,9 +6,11 @@ export const useCurrentWeather = async (
 ) => {
   const runtimeConfig = useRuntimeConfig();
   const options = {
-    method: "POST",
+    method: "GET",
     headers: {
       accept: "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "*",
       "Accept-Encoding": "gzip",
       "content-type": "application/json",
     },
