@@ -10,30 +10,32 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "cream": "#FFFAF5"
-      }
+        cream: "#FFFAF5",
+      },
     },
     spacing: {
-      '0': '0px',
-      '1/2': '4px',
-      '1': '8px',
-      '1.5': '12px',
-      '2': '16px',
-      '2.5': '20px',
-      '3': '24px',
-      '4': '32px',
-      '5': '40px',
-      '6': '48px',
-      '7': '56px',
-      '8': '64px',
-      '9': '72px',
-      '10': '80px',
-      '20': '160px',
-      '40': '240px',
-    }
+      0: "0px",
+      0.25: "2px",
+      "1/2": "4px",
+      1: "8px",
+      1.5: "12px",
+      2: "16px",
+      2.5: "20px",
+      3: "24px",
+      4: "32px",
+      5: "40px",
+      6: "48px",
+      7: "56px",
+      8: "64px",
+      9: "72px",
+      10: "80px",
+      12: "96px",
+      14: "112px",
+      16: "128px",
+      18: "144px",
+      20: "160px",
+      40: "240px",
+    },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-  ],
-}
-
+  plugins: [require("@tailwindcss/forms")],
+};

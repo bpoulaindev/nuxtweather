@@ -1,43 +1,49 @@
-// customHooks.js
-import { ref, onMounted } from "vue";
+import { ForecastTodayData, WeatherData } from "~/utils/types/weather";
 
-export function useWeatherData(
-  initialLatitude: number,
-  initialLongitude: number,
-) {
-  const locationData = ref({
-    latitude: initialLatitude || null,
-    longitude: initialLongitude || null,
-  });
-
-  const fetchData = async (latitude: number, longitude: number) => {
-    try {
-      // Construct the API URL with provided or current coordinates
-      const apiUrl = `https://api.weatherapi.com/v1/current.json?key=f2c03022868b4d90ad7160433231309&q=${latitude},${longitude}&aqi=no`;
-      // Simulate fetching data from the weather API
-      const response = await fetch(apiUrl);
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-
-      // Update locationData with the fetched data
-      locationData.value.latitude = data.latitude;
-      locationData.value.longitude = data.longitude;
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      // Handle errors here, e.g., set locationData to null or display an error message
-    }
+export const useCurrentWeather = async (
+  latitude: number,
+  longitude: number,
+) => {
+  const runtimeConfig = useRuntimeConfig();
+  const options = {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "Accept-Encoding": "gzip",
+      "content-type": "application/json",
+    },
   };
+  const url = `https://api.weatherapi.com/v1/current.json?key=${
+    runtimeConfig.public.WEATHER_API_KEY ?? ""
+  }&q=${latitude},${longitude}&aqi=no&lang=fr`;
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return (await response.json()) as WeatherData;
+};
 
-  onMounted(() => {
-    // Call fetchData with initial coordinates when the component is mounted
-    fetchData(initialLatitude, initialLongitude);
-  });
-
-  return {
-    locationData,
-    fetchData,
+export const useForecastTodayWeather = async (
+  latitude: number,
+  longitude: number,
+  days?: number,
+) => {
+  const runtimeConfig = useRuntimeConfig();
+  const options = {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "Accept-Encoding": "gzip",
+      "content-type": "application/json",
+    },
   };
-}
+  // https://api.weatherapi.com/v1/forecast.json?key=f2c03022868b4d90ad7160433231309&q=Lille&days=1&aqi=no&alerts=no
+  const url = `https://api.weatherapi.com/v1/forecast.json?key=${
+    runtimeConfig.public.WEATHER_API_KEY ?? ""
+  }&q=${latitude},${longitude}&days=${days ?? 1}&aqi=no&alerts=no&lang=fr`;
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return (await response.json()) as ForecastTodayData;
+};

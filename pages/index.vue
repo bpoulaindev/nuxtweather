@@ -1,50 +1,42 @@
 <script setup lang="ts">
+import { ref, computed, watch, onMounted } from "vue";
 import { useGeolocation } from "@vueuse/core";
-import { UseGeolocation } from "@vueuse/components";
-import Weather from "~/components/weather/Weather.vue";
-// const url = `https://api.weatherapi.com/v1/current.json?key=f2c03022868b4d90ad7160433231309&q=${coords.latitude},${coords.longitude}&aqi=no`;
+import ForecastToday from "@/components/weather/forecast/ForecastToday.vue";
+import CurrentWeather from "~/components/weather/Weather.vue";
 
-const { coords, locatedAt, error, resume, pause } = useGeolocation();
+const { coords } = useGeolocation();
 const correctCoords = ref({
   latitude: 0,
   longitude: 0,
 });
 
-// Define a computed property to get the current coordinates
-const currentCoordinates = computed(() => {
-  return {
-    latitude: coords.value.latitude,
-    longitude: coords.value.longitude,
-  };
+const hasValidCoords = computed(() => {
+  return (
+    typeof correctCoords.value.latitude === "number" &&
+    typeof correctCoords.value.longitude === "number" &&
+    correctCoords.value.latitude !== 0 &&
+    correctCoords.value.longitude !== 0
+  );
 });
-watch(coords, async (newCoords, oldCoords) => {
-  if (
-    typeof newCoords.latitude === "number" &&
-    typeof newCoords.longitude === "number"
-  ) {
-    correctCoords.value = {
-      latitude: newCoords.latitude,
-      longitude: newCoords.longitude,
-    };
-    try {
-      const url = `https://api.weatherapi.com/v1/current.json?key=f2c03022868b4d90ad7160433231309&q=${correctCoords.value.latitude},${correctCoords.value.longitude}&aqi=no`;
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      console.log("Fetched data:", data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
+
+// Use onMounted to ensure that the watch function is set up after component initialization.
+onMounted(() => {
+  watch(coords, (newCoords, oldCoords) => {
+    if (
+      typeof newCoords?.latitude === "number" &&
+      typeof newCoords?.longitude === "number"
+    ) {
+      correctCoords.value = {
+        latitude: newCoords.latitude,
+        longitude: newCoords.longitude,
+      };
     }
-  }
+  });
 });
 </script>
 
 <template>
   <div>
-    <Weather />
+    <CurrentWeather v-if="hasValidCoords" :coords="correctCoords" />
   </div>
 </template>
-
-<style scoped></style>
