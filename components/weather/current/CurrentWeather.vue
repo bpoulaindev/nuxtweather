@@ -25,12 +25,12 @@ const props = defineProps<{
     }}</span>
 
     <span
-      class="text-6xl sm:text-8xl font-normal sm:font-light mt-2"
+      class="text-7xl sm:text-8xl font-normal sm:font-light mt-1"
       :class="computedClasses.text"
     >
       {{ current.temp_c }}°
     </span>
-    <div class="flex items-center mt-1/2">
+    <div class="flex items-center mt-1">
       <img
         :src="current.condition.icon"
         :alt="current.condition.text"
@@ -42,17 +42,17 @@ const props = defineProps<{
       >
         {{ current.condition.text }}
       </span>
+      <span
+        class="px-1 py-0.5 text-base sm:text-xl font-light rounded-lg font-semibold sm:font-medium border-2"
+        :class="[
+          current.feelslike_c >= current.temp_c
+            ? 'bg-red-50/70 text-red-800 border-red-200'
+            : 'bg-indigo-50/70 text-indigo-800 border-indigo-200',
+        ]"
+      >
+        Ressenti {{ current.feelslike_c }}°C
+      </span>
     </div>
-    <span
-      class="px-2 py-1 text-base sm:text-xl font-light mt-1 rounded-lg font-semibold sm:font-medium border-2"
-      :class="[
-        current.feelslike_c >= current.temp_c
-          ? 'bg-red-50/70 text-red-800 border-red-200'
-          : 'bg-indigo-50/70 text-indigo-800 border-indigo-200',
-      ]"
-    >
-      Ressenti {{ current.feelslike_c }}°C
-    </span>
     <div
       class="p-2 w-full flex bg-white/40 rounded-xl mt-1 items-center justify-between sm:justify-around"
     >

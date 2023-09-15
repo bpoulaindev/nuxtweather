@@ -47,7 +47,7 @@ const computedClasses = computed(() => {
     return {
       background: "bg-gradient-to-br from-orange-100/40 to-orange-300/80",
       text: "text-orange-800",
-      iconBg: "bg-white/90",
+      iconBg: "bg-white/50",
     };
   } else {
     return {

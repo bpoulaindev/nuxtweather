@@ -1,9 +1,18 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from "vue";
 import { useGeolocation } from "@vueuse/core";
-import ForecastToday from "@/components/weather/forecast/ForecastToday.vue";
 import CurrentWeather from "~/components/weather/Weather.vue";
 
+useHead({
+  title: "Vuxt Weather",
+  meta: [
+    {
+      name: "Vuxt Weather",
+      content:
+        "Obtenez la météo en temps réel avec des prévisions sur la semaine.",
+    },
+  ],
+});
 const { coords } = useGeolocation();
 const correctCoords = ref({
   latitude: 0,
