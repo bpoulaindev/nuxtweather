@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { unix } from "dayjs";
+import dayjs from "dayjs";
 
 const props = defineProps<{
   isNow?: boolean;
@@ -7,7 +7,7 @@ const props = defineProps<{
   icon: string;
   temp: number;
 }>();
-const hour = unix(props.time).hour();
+const hour = dayjs.unix(props.time).hour();
 </script>
 
 <template>
