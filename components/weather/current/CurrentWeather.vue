@@ -2,7 +2,7 @@
 import RainSVG from "assets/icons/rain.svg";
 import WaterSVG from "assets/icons/water.svg";
 import WindSVG from "assets/icons/wind.svg";
-import { CurrentWeatherData, LocationData } from "utils/types/weather";
+import { CurrentWeatherData, LocationData } from "~/utils/types/weather";
 
 const props = defineProps<{
   location: LocationData;
@@ -16,7 +16,10 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="mt-4 sm:mt-10 flex flex-col w-full items-center">
+  <div
+    v-if="location && current && computedClasses"
+    class="mt-4 sm:mt-10 flex flex-col w-full items-center"
+  >
     <span class="text-2xl sm:text-3xl" :class="computedClasses.text"
       >{{ location.name }},</span
     >

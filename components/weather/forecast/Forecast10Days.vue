@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
-import { ForecastTodayData } from "utils/types/weather";
-import { useForecastTodayWeather } from "utils/weatherHook";
 import dayjs from "dayjs";
 import { CalendarDaysIcon } from "@heroicons/vue/20/solid";
+import { ForecastTodayData } from "~/utils/types/weather";
 import DaysForecast from "~/components/weather/forecast/days_forecast/DaysForecast.vue";
 
 const props = defineProps<{
@@ -22,11 +21,15 @@ const forecastWeather = ref<ForecastTodayData | null>(null);
 
 watchEffect(async () => {
   try {
-    forecastWeather.value = await useForecastTodayWeather(
-      props.coords.latitude,
-      props.coords.longitude,
-      10,
-    );
+    const test = await fetch(`/api/weather_current`, {
+      params: {
+        lat: props.coords.latitude,
+        lon: props.coords.longitude,
+        days: 10,
+      },
+      method: "GET",
+    });
+    forecastWeather.value = await test.json();
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -46,6 +49,7 @@ const today = dayjs().day();
 
 <template>
   <div
+    v-if="coords && forecastWeather"
     class="w-full flex flex-col rounded-xl bg-white/30 items-start mt-2 p-2 overflow-x-auto overflow-hidden"
   >
     <h3 class="flex items-center pb-1">
@@ -53,7 +57,7 @@ const today = dayjs().day();
       Prévisions sur 10 jours
     </h3>
     <DaysForecast
-      v-for="day in forecastWeather?.forecast.forecastday"
+      v-for="day in forecastWeather?.forecast?.forecastday"
       :key="day.date_epoch"
       :is-now="dayjs(day.date).day() === today"
       :day="

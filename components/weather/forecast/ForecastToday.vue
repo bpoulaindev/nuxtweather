@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ForecastData, ForecastTodayData } from "utils/types/weather";
 import dayjs from "dayjs";
+import { ForecastData, HourForecast } from "~/utils/types/weather";
 import SmallForecast from "~/components/weather/forecast/small_forecast/SmallForecast.vue";
 
 const props = defineProps<{
@@ -19,6 +19,7 @@ const timestamp = timestampForHour.unix();
 
 <template>
   <div
+    v-if="forecast"
     class="w-full flex rounded-xl bg-white/30 items-center mt-2 p-2 overflow-x-auto overflow-hidden"
   >
     <div
@@ -27,7 +28,9 @@ const timestamp = timestampForHour.unix();
       class="flex w-auto items-center"
     >
       <SmallForecast
-        v-for="hour in day.hour.filter((data) => data.time_epoch >= timestamp)"
+        v-for="hour in day.hour.filter(
+          (data: HourForecast) => data.time_epoch >= timestamp,
+        )"
         :key="hour.time_epoch"
         :is-now="hour.time_epoch === timestamp"
         :time="hour.time_epoch"

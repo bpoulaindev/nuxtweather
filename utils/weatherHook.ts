@@ -44,8 +44,6 @@ export const useForecastTodayWeather = async (
     runtimeConfig.public.WEATHER_API_KEY ?? ""
   }&q=${latitude},${longitude}&days=${days ?? 1}&aqi=no&alerts=no&lang=fr`;
   const response = await fetch(url, options);
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-  return (await response.json()) as ForecastTodayData;
+
+  return response;
 };

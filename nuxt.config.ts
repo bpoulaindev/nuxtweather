@@ -1,7 +1,7 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 import path from "path";
+import { NuxtConfig } from "@nuxt/types";
 
-export default defineNuxtConfig({
+export const config: NuxtConfig = {
   alias: {
     utils: path.resolve(__dirname, "utils"),
   },
@@ -21,11 +21,18 @@ export default defineNuxtConfig({
       WEATHER_API_KEY: process.env.WEATHER_API_KEY,
     },
   },
+  server: {
+    port: 4000,
+  },
   modules: ["nuxt-svgo"],
   css: ["@/assets/css/main.css"],
-  devServer: {
-    port: 3000,
-    host: "https://localhost",
-    https: true,
+  serverMiddleware: [
+    {
+      path: "/api/weather_current.ts",
+      handler: "~/server/middleware/middleware.ts",
+    },
+  ],
+  proxy: {
+    prefix: "/api/weather_current.ts",
   },
-});
+};
