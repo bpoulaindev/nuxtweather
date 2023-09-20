@@ -4,7 +4,6 @@ import dayjs from "dayjs";
 import { CalendarDaysIcon } from "@heroicons/vue/20/solid";
 import { ForecastTodayData } from "~/utils/types/weather";
 import DaysForecast from "~/components/weather/forecast/days_forecast/DaysForecast.vue";
-import { fetchForecastWeather } from "~/composables/fetch";
 
 const props = defineProps<{
   coords: {
