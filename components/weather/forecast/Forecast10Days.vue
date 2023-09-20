@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { CalendarDaysIcon } from "@heroicons/vue/20/solid";
 import { ForecastTodayData } from "~/utils/types/weather";
 import DaysForecast from "~/components/weather/forecast/days_forecast/DaysForecast.vue";
+import { fetchForecastWeather } from "~/composables/fetch";
 
 const props = defineProps<{
   coords: {
@@ -21,20 +22,20 @@ const forecastWeather = ref<ForecastTodayData | null>(null);
 
 watchEffect(async () => {
   try {
-    const test = await fetch(`/api/weather_current`, {
+    const { data } = await useFetch("/api/weather", {
+      method: "POST",
       params: {
         lat: props.coords.latitude,
         lon: props.coords.longitude,
         days: 10,
       },
-      method: "GET",
+      pick: ["forecast"],
     });
-    forecastWeather.value = await test.json();
+    forecastWeather.value = data?.value?.forecast as ForecastTodayData;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 });
-console.log("ok lezgooo", forecastWeather);
 const enToFrDays = {
   Mon: "Lun",
   Tue: "Mar",

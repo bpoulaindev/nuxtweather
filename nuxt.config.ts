@@ -1,7 +1,15 @@
 import path from "path";
-import { NuxtConfig } from "@nuxt/types";
 
-export const config: NuxtConfig = {
+export default {
+  ssr: true,
+  target: "server",
+  serverMiddleware: [
+    { path: "/api/geoweather", handler: "~/middleware/geoweather.global.ts" },
+    { path: "/", handler: "~/middleware/geoweather.global.ts" },
+  ],
+  geolocation: {
+    watch: true, // Enable continuous location watching
+  },
   alias: {
     utils: path.resolve(__dirname, "utils"),
   },
@@ -17,22 +25,13 @@ export const config: NuxtConfig = {
     },
   },
   runtimeConfig: {
-    public: {
-      WEATHER_API_KEY: process.env.WEATHER_API_KEY,
-    },
-  },
-  server: {
-    port: 4000,
+    weatherApiKey: process.env.NUXT_WEATHER_API_KEY,
   },
   modules: ["nuxt-svgo"],
   css: ["@/assets/css/main.css"],
-  serverMiddleware: [
-    {
-      path: "/api/weather_current.ts",
-      handler: "~/server/middleware/middleware.ts",
-    },
-  ],
-  proxy: {
-    prefix: "/api/weather_current.ts",
+  devServer: {
+    port: 3000,
+    host: "https://localhost",
+    https: true,
   },
 };

@@ -11,7 +11,6 @@ const props = defineProps<{
     iconBg: string;
   };
 }>();
-console.log("pitié", props.forecast);
 const now = dayjs();
 const timestampForHour = now.set("minute", 0).set("second", 0);
 const timestamp = timestampForHour.unix();

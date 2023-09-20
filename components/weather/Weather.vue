@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
-import { ref, watchEffect, computed, ComputedRef } from "vue";
+import { computed, ComputedRef, ref, watchEffect } from "vue";
 import { ForecastTodayData } from "~/utils/types/weather";
 import ForecastToday from "~/components/weather/forecast/ForecastToday.vue";
 import CurrentWeather from "~/components/weather/current/CurrentWeather.vue";
 import Forecast10Days from "~/components/weather/forecast/Forecast10Days.vue";
-import { useForecastTodayWeather } from "~/utils/weatherHook";
 
 const props = defineProps<{
   coords: {
@@ -13,25 +12,24 @@ const props = defineProps<{
     longitude: number;
   };
 }>();
-
 const forecastWeather = ref<ForecastTodayData | null>(null);
 
 watchEffect(async () => {
   try {
-    const test = await $fetch(`http://localhost:3000/api/weather_current`, {
+    const { data } = await useFetch("/api/weather", {
+      method: "POST",
       params: {
         lat: props.coords.latitude,
         lon: props.coords.longitude,
         days: 2,
       },
-      method: "GET",
+      pick: ["forecast"],
     });
-    console.log("pitié pitié", test);
+    forecastWeather.value = data?.value?.forecast as ForecastTodayData;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 });
-
 const computedClasses = computed(() => {
   const currentTemp = forecastWeather?.value?.current?.temp_c ?? 15;
   const currentTime = dayjs(

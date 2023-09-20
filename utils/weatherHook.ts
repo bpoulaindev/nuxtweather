@@ -42,7 +42,30 @@ export const useForecastTodayWeather = async (
   // https://api.weatherapi.com/v1/forecast.json?key=f2c03022868b4d90ad7160433231309&q=Lille&days=1&aqi=no&alerts=no
   const url = `https://api.weatherapi.com/v1/forecast.json?key=${
     runtimeConfig.public.WEATHER_API_KEY ?? ""
-  }&q=${latitude},${longitude}&days=${days ?? 1}&aqi=no&alerts=no&lang=fr`;
+  }&q=${latitude},${longitude}&days=${days ?? 2}&aqi=no&alerts=no&lang=fr`;
+  const response = await fetch(url, options);
+
+  return response;
+};
+
+export const useForecastTodayWeather2 = async (
+  latitude: number,
+  longitude: number,
+  days?: number,
+) => {
+  const runtimeConfig = useRuntimeConfig();
+  const options = {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "Accept-Encoding": "gzip",
+      "content-type": "application/json",
+    },
+  };
+  // https://api.weatherapi.com/v1/forecast.json?key=f2c03022868b4d90ad7160433231309&q=Lille&days=1&aqi=no&alerts=no
+  const url = `https://api.weatherapi.com/v1/forecast.json?key=${
+    runtimeConfig.public.WEATHER_API_KEY ?? ""
+  }&q=${latitude},${longitude}&days=${days ?? 2}&aqi=no&alerts=no&lang=fr`;
   const response = await fetch(url, options);
 
   return response;
