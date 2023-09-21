@@ -94,10 +94,6 @@ const computedClasses = computed(() => {
   }
 }) as ComputedRef<ComputedClasses>;
 const seeForecast = ref(false);
-console.log("this is the state of seeforecast", seeForecast.value);
-watch(seeForecast, (value) => {
-  console.log("this is the state of seeforecast", value);
-});
 const toggleSeeForecast = () => {
   seeForecast.value = !seeForecast.value;
 };
@@ -116,13 +112,7 @@ const toggleSeeForecast = () => {
       :see-forecast="seeForecast"
       @toggle-see-forecast="toggleSeeForecast"
     />
-    <CurrentWeather
-      v-if="forecastWeather.current && forecastWeather.location && false"
-      :current="forecastWeather.current"
-      :location="forecastWeather.location"
-      :computed-classes="computedClasses"
-    />
-    <Transition duration="550" name="nested">
+    <Transition :duration="550" name="nested">
       <ForecastToday
         v-if="forecastWeather.forecast && seeForecast"
         :forecast="forecastWeather.forecast"
