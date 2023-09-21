@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from "vue";
-import { useGeolocation } from "@vueuse/core";
-import CurrentWeather from "~/components/weather/Weather.vue";
+import { storeToRefs } from "pinia";
+import Weather from "~/components/weather/Weather.vue";
+import { useGeoloc } from "~/stores/geoloc";
 
 useHead({
   title: "Vuxt Weather",
@@ -13,39 +13,12 @@ useHead({
     },
   ],
 });
-const { coords } = useGeolocation();
-const correctCoords = ref({
-  latitude: 0,
-  longitude: 0,
-});
-
-const hasValidCoords = computed(() => {
-  return (
-    typeof correctCoords.value.latitude === "number" &&
-    typeof correctCoords.value.longitude === "number" &&
-    correctCoords.value.latitude !== 0 &&
-    correctCoords.value.longitude !== 0
-  );
-});
-
-// Use onMounted to ensure that the watch function is set up after component initialization.
-onMounted(() => {
-  watch(coords, (newCoords, oldCoords) => {
-    if (
-      typeof newCoords?.latitude === "number" &&
-      typeof newCoords?.longitude === "number"
-    ) {
-      correctCoords.value = {
-        latitude: newCoords.latitude,
-        longitude: newCoords.longitude,
-      };
-    }
-  });
-});
+const store = useGeoloc();
+const { hasValidCoords, coords } = storeToRefs(store);
 </script>
 
 <template>
   <div>
-    <CurrentWeather v-if="hasValidCoords" :coords="correctCoords" />
+    <Weather v-if="hasValidCoords" :coords="coords" />
   </div>
 </template>

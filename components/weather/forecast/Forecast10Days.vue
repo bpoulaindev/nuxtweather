@@ -7,31 +7,10 @@ import DaysForecast from "~/components/weather/forecast/days_forecast/DaysForeca
 import { ComputedClasses } from "~/components/weather/Weather.vue";
 
 const props = defineProps<{
-  coords: {
-    latitude: number;
-    longitude: number;
-  };
+  forecastWeather: ForecastTodayData["forecast"];
   computedClasses: ComputedClasses;
 }>();
 
-const forecastWeather = ref<ForecastTodayData | null>(null);
-
-watchEffect(async () => {
-  try {
-    const { data } = await useFetch("/api/weather", {
-      method: "POST",
-      params: {
-        lat: props.coords.latitude,
-        lon: props.coords.longitude,
-        days: 10,
-      },
-      pick: ["forecast"],
-    });
-    forecastWeather.value = data?.value?.forecast as ForecastTodayData;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-});
 const enToFrDays = {
   Mon: "Lun",
   Tue: "Mar",
@@ -46,19 +25,18 @@ const today = dayjs().day();
 
 <template>
   <div
-    v-if="coords && forecastWeather"
     class="w-full flex flex-col rounded-xl items-start mt-2 p-1 xs:p-2 h-auto"
     :class="computedClasses.cards?.bg"
   >
     <h3
-      class="flex items-center xs:mt-0 pb-1 ml-1/2 text-sm xs:text-base xs:pb-1.5 font-medium xs:font-normal"
+      class="flex items-center xs:mt-0 pb-1 ml-1/2 text-sm xs:text-base xs:pb-1.5 font-medium xs:font-medium"
       :class="computedClasses.cards?.text"
     >
       <CalendarDaysIcon class="w-2 h-2 xs:h-3 xs:w-3 mr-1" />
       Prévisions sur 10 jours
     </h3>
     <DaysForecast
-      v-for="day in forecastWeather?.forecast?.forecastday"
+      v-for="day in forecastWeather?.forecastday"
       :key="day.date_epoch"
       :is-now="dayjs(day.date).day() === today"
       :text-color="computedClasses.cards?.text"

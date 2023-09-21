@@ -28,7 +28,7 @@ export default {
   runtimeConfig: {
     weatherApiKey: process.env.NUXT_WEATHER_API_KEY,
   },
-  modules: ["nuxt-svgo"],
+  modules: ["nuxt-svgo", "@pinia/nuxt"],
   css: ["@/assets/css/main.css"],
   devServer: {
     port: 3000,
