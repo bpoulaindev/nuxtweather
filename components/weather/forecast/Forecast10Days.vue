@@ -47,10 +47,14 @@ const today = dayjs().day();
 <template>
   <div
     v-if="coords && forecastWeather"
-    class="w-full flex flex-col rounded-xl bg-white/80 items-start mt-2 p-2 h-auto"
+    class="w-full flex flex-col rounded-xl items-start mt-2 p-2 h-auto"
+    :class="computedClasses.cards?.bg"
   >
-    <h3 class="flex items-center pb-1">
-      <CalendarDaysIcon class="w-2 h-2 mr-1" />
+    <h3
+      class="flex items-center -mt-1/2 xs:mt-0 pb-1 text-sm xs:text-base xs:pb-1.5 font-medium xs:font-normal"
+      :class="computedClasses.cards?.text"
+    >
+      <CalendarDaysIcon class="w-2 h-2 xs:h-3 xs:w-3 mr-1" />
       Prévisions sur 10 jours
     </h3>
     <DaysForecast

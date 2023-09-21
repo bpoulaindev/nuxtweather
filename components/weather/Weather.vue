@@ -16,6 +16,10 @@ export interface ComputedClasses {
     bg: string;
     ping: string;
   };
+  cards?: {
+    bg: string;
+    text: string;
+  };
 }
 
 const props = defineProps<{
@@ -57,6 +61,10 @@ const computedClasses = computed(() => {
         bg: "bg-purple-400",
         ping: "bg-purple-500",
       },
+      cards: {
+        bg: "bg-purple-50",
+        text: "text-purple-600",
+      },
     };
   } else if (currentTemp < 15) {
     return {
@@ -67,6 +75,10 @@ const computedClasses = computed(() => {
       ping: {
         bg: "bg-teal-300",
         ping: "bg-teal-400",
+      },
+      cards: {
+        bg: "bg-teal-50",
+        text: "text-teal-900",
       },
     };
   } else if (currentTemp >= 15) {
@@ -79,6 +91,10 @@ const computedClasses = computed(() => {
         bg: "bg-orange-400",
         ping: "bg-orange-500",
       },
+      cards: {
+        bg: "bg-orange-50",
+        text: "text-orange-600",
+      },
     };
   } else {
     return {
@@ -89,6 +105,10 @@ const computedClasses = computed(() => {
       ping: {
         bg: "bg-purple-400",
         ping: "bg-purple-500",
+      },
+      cards: {
+        bg: "bg-purple-50",
+        text: "text-purple-600",
       },
     };
   }
@@ -112,7 +132,7 @@ const toggleSeeForecast = () => {
       :see-forecast="seeForecast"
       @toggle-see-forecast="toggleSeeForecast"
     />
-    <div class="flex w-full overflow-x-scroll flex-col h-full pb-4">
+    <div class="flex w-full overflow-x-scroll flex-col h-full mb-2 rounded-xl">
       <Transition :duration="550" name="nested">
         <ForecastToday
           v-if="forecastWeather.forecast && seeForecast"
