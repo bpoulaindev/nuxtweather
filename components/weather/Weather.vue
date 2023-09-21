@@ -133,14 +133,26 @@ const toggleSeeForecast = () => {
       @toggle-see-forecast="toggleSeeForecast"
     />
     <div class="flex w-full overflow-x-scroll flex-col h-full mb-2 rounded-xl">
-      <Transition :duration="550" name="nested">
+      <Transition
+        :duration="{
+          enter: 300,
+          leave: 3000,
+        }"
+        name="card1"
+      >
         <ForecastToday
           v-if="forecastWeather.forecast && seeForecast"
           :forecast="forecastWeather.forecast"
           :computed-classes="computedClasses"
         />
       </Transition>
-      <Transition :duration="550" name="nested">
+      <Transition
+        :duration="{
+          enter: 300,
+          leave: 3000,
+        }"
+        name="card2"
+      >
         <Forecast10Days
           v-if="seeForecast"
           :coords="coords"
@@ -152,17 +164,25 @@ const toggleSeeForecast = () => {
 </template>
 
 <style>
-.nested-enter-active,
-.nested-leave-active {
+.card1-enter-active,
+.card2-enter-active {
   transition: all 0.3s ease-in-out;
 }
 
-.nested-leave-active {
-  transition-delay: 0.25s;
+.card1-leave-active {
+  transition: all 0.3s ease-in-out;
+  transition-delay: 0.2s;
 }
 
-.nested-enter-from,
-.nested-leave-to {
+.card2-leave-active {
+  transition: all 0.3s ease-in-out;
+  transition-delay: 0.1s;
+}
+
+.card1-enter-from,
+.card1-leave-to,
+.card2-enter-from,
+.card2-leave-to {
   transform: translateY(30px);
   opacity: 0;
 }

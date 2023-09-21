@@ -38,5 +38,3 @@ const timestamp = timestampForHour.unix();
     </div>
   </div>
 </template>
-
-<style scoped></style>

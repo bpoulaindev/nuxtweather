@@ -47,11 +47,11 @@ const today = dayjs().day();
 <template>
   <div
     v-if="coords && forecastWeather"
-    class="w-full flex flex-col rounded-xl items-start mt-2 p-2 h-auto"
+    class="w-full flex flex-col rounded-xl items-start mt-2 p-1 xs:p-2 h-auto"
     :class="computedClasses.cards?.bg"
   >
     <h3
-      class="flex items-center -mt-1/2 xs:mt-0 pb-1 text-sm xs:text-base xs:pb-1.5 font-medium xs:font-normal"
+      class="flex items-center xs:mt-0 pb-1 ml-1/2 text-sm xs:text-base xs:pb-1.5 font-medium xs:font-normal"
       :class="computedClasses.cards?.text"
     >
       <CalendarDaysIcon class="w-2 h-2 xs:h-3 xs:w-3 mr-1" />
@@ -61,6 +61,7 @@ const today = dayjs().day();
       v-for="day in forecastWeather?.forecast?.forecastday"
       :key="day.date_epoch"
       :is-now="dayjs(day.date).day() === today"
+      :text-color="computedClasses.cards?.text"
       :day="
         enToFrDays[dayjs(day.date).format('ddd') as keyof typeof enToFrDays]
       "
