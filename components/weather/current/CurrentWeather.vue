@@ -3,6 +3,7 @@ import RainSVG from "assets/icons/rain.svg";
 import WaterSVG from "assets/icons/water.svg";
 import WindSVG from "assets/icons/wind.svg";
 import { CurrentWeatherData, LocationData } from "~/utils/types/weather";
+import SmallCurrent from "~/components/weather/current/small_current/SmallCurrent.vue";
 
 const props = defineProps<{
   location: LocationData;
@@ -13,6 +14,20 @@ const props = defineProps<{
     iconBg: string;
   };
 }>();
+const weatherStats = [
+  {
+    icon: "../../../../assets/icons/wind.svg",
+    value: `${props.current.wind_kph} km/h`,
+  },
+  {
+    icon: "../../../../assets/icons/water.svg",
+    value: `${props.current.humidity} %`,
+  },
+  {
+    icon: "../../../../assets/icons/rain.svg",
+    value: `${props.current.precip_mm} mm`,
+  },
+];
 </script>
 
 <template>
@@ -33,20 +48,21 @@ const props = defineProps<{
     >
       {{ current.temp_c }}°
     </span>
-    <div class="flex items-center mt-1">
-      <img
-        :src="current.condition.icon"
-        :alt="current.condition.text"
-        class="w-4 h-4 sm:h-8 sm:w-8 mr-1"
-      />
-      <span
-        class="text-xl sm:text-2xl font-light pr-2"
+    <div class="flex items-center mt-1 justify-between">
+      <p
+        class="flex items-center text-sm xs:text-base sm:text-2xl font-light pr-2"
         :class="computedClasses.text"
       >
+        <img
+          :src="current.condition.icon"
+          :alt="current.condition.text"
+          class="w-4 h-4 sm:h-8 sm:w-8 mr-1 inline-flex"
+        />
         {{ current.condition.text }}
-      </span>
+      </p>
       <span
-        class="px-1 py-0.5 text-base sm:text-xl font-light rounded-lg font-semibold sm:font-medium border-2"
+        v-if="current.feelslike_c !== current.temp_c"
+        class="px-1 py-0.5 text-sm xs:text-base sm:text-xl font-light rounded-lg font-semibold sm:font-medium border-2 whitespace-nowrap"
         :class="[
           current.feelslike_c >= current.temp_c
             ? 'bg-red-50/70 text-red-800 border-red-200'
@@ -57,41 +73,18 @@ const props = defineProps<{
       </span>
     </div>
     <div
-      class="p-2 w-full flex bg-white/40 rounded-xl mt-1 items-center justify-between sm:justify-around"
+      class="p-2 w-full flex bg-white/60 rounded-xl mt-1 items-center justify-between sm:justify-around"
     >
-      <div class="flex items-center">
-        <div
-          class="flex items-center justify-center p-1 rounded-lg shadow-sm"
-          :class="computedClasses.iconBg"
-        >
-          <WindSVG class="!w-3 !h-3 text-indigo-500 !mb-0 [&>*]:!mb-0" />
-        </div>
-        <span class="text-sm sm:text-xl font-medium ml-1">
-          {{ current.wind_kph }} km/h
-        </span>
-      </div>
-      <div class="flex items-center">
-        <div
-          class="flex items-center justify-center p-1 rounded-lg shadow-sm"
-          :class="computedClasses.iconBg"
-        >
-          <WaterSVG class="!w-3 !h-3 text-indigo-500 !mb-0 [&>*]:!mb-0" />
-        </div>
-        <span class="text-sm sm:text-xl font-medium ml-1">
-          {{ current.humidity }}%
-        </span>
-      </div>
-      <div class="flex items-center">
-        <div
-          class="flex items-center justify-center p-1 rounded-lg shadow-sm"
-          :class="computedClasses.iconBg"
-        >
-          <RainSVG class="!w-3 !h-3 text-indigo-500 !mb-0 [&>*]:!mb-0" />
-        </div>
-        <span class="text-sm sm:text-xl font-medium ml-1">
-          {{ current.precip_mm }}mm
-        </span>
-      </div>
+      <SmallCurrent
+        v-for="item in weatherStats"
+        :key="item.icon"
+        :classes="{
+          text: '',
+          iconBg: computedClasses.iconBg,
+        }"
+        :icon="item.icon"
+        :value="item.value"
+      />
     </div>
   </div>
 </template>

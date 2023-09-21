@@ -2,14 +2,11 @@
 import dayjs from "dayjs";
 import { ForecastData, HourForecast } from "~/utils/types/weather";
 import SmallForecast from "~/components/weather/forecast/small_forecast/SmallForecast.vue";
+import { ComputedClasses } from "~/components/weather/Weather.vue";
 
 const props = defineProps<{
   forecast: ForecastData;
-  computedClasses: {
-    background: string;
-    text: string;
-    iconBg: string;
-  };
+  computedClasses: ComputedClasses;
 }>();
 const now = dayjs();
 const timestampForHour = now.set("minute", 0).set("second", 0);
@@ -19,7 +16,7 @@ const timestamp = timestampForHour.unix();
 <template>
   <div
     v-if="forecast"
-    class="w-full flex rounded-xl bg-white/30 items-center mt-2 p-2 overflow-x-auto overflow-hidden"
+    class="w-full flex rounded-xl bg-white/60 items-center mt-2 p-2 overflow-x-auto overflow-hidden"
   >
     <div
       v-for="day in forecast.forecastday"

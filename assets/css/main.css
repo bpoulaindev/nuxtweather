@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'Literata';
+    src: url('../fonts/literata/Literata-Variable.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Literata Italic';
+    src: url('../fonts/literata/Literata-VariableItalic.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Sentient';
+    src: url('../fonts/sentient/Sentient-Variable.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+}

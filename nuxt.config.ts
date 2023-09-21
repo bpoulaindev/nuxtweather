@@ -18,6 +18,7 @@ export default {
     strict: true,
     typeCheck: true,
   },
+  plugins: [],
   postcss: {
     plugins: {
       tailwindcss: {},
