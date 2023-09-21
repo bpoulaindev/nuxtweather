@@ -40,7 +40,7 @@ const currentTime = dayjs(
 const computedClasses = useComputedClasses(
   currentTemp,
   currentTime,
-  (weather?.value?.current?.precip_mm ?? 0) > 0,
+  (weather?.value?.current?.precip_mm ?? 0) > 0.2,
 );
 const seeForecast = ref(false);
 const toggleSeeForecast = () => {

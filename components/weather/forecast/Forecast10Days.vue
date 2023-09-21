@@ -36,9 +36,9 @@ const today = dayjs().day();
       Prévisions sur 10 jours
     </h3>
     <DaysForecast
-      v-for="day in forecastWeather?.forecastday"
+      v-for="(day, index) in forecastWeather?.forecastday"
       :key="day.date_epoch"
-      :is-now="dayjs(day.date).day() === today"
+      :is-now="index === 0"
       :text-color="computedClasses.cards?.text"
       :day="
         enToFrDays[dayjs(day.date).format('ddd') as keyof typeof enToFrDays]
