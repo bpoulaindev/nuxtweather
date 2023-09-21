@@ -24,7 +24,7 @@ const computedText = computed(() => {
 <template>
   <div
     v-if="location && current && computedClasses"
-    class="mt-4 sm:mt-10 flex flex-col w-full items-center"
+    class="mt-4 sm:mt-10 flex flex-col w-full items-center pb-2"
   >
     <span
       class="text-3xl xs:text-4xl sm:text-6xl font-semibold font-literata"

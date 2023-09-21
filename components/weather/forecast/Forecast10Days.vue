@@ -47,7 +47,7 @@ const today = dayjs().day();
 <template>
   <div
     v-if="coords && forecastWeather"
-    class="w-full flex flex-col rounded-xl bg-white/60 items-start mt-2 p-2 overflow-x-auto overflow-hidden"
+    class="w-full flex flex-col rounded-xl bg-white/80 items-start mt-2 p-2 h-auto"
   >
     <h3 class="flex items-center pb-1">
       <CalendarDaysIcon class="w-2 h-2 mr-1" />

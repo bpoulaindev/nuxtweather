@@ -16,12 +16,12 @@ const timestamp = timestampForHour.unix();
 <template>
   <div
     v-if="forecast"
-    class="w-full flex rounded-xl bg-white/60 items-center mt-2 p-2 overflow-x-auto overflow-hidden"
+    class="w-full flex rounded-xl bg-white/80 items-center p-2 overflow-x-auto !overflow-y-visible min-h-[140px] h-full"
   >
     <div
       v-for="day in forecast.forecastday"
       :key="day.date_epoch"
-      class="flex w-auto items-center"
+      class="flex w-auto items-center h-full"
     >
       <SmallForecast
         v-for="hour in day.hour.filter(

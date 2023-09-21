@@ -11,7 +11,7 @@ const hour = dayjs.unix(props.time).hour();
 </script>
 
 <template>
-  <div class="flex flex-col p-1 mr-1 items-center justify-center">
+  <div class="flex flex-col p-1 mr-1 items-center justify-center min-h-full">
     <span v-if="isNow" class="text-sm sm:text-base font-semibold">
       Maint.
     </span>

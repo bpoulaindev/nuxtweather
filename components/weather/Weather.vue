@@ -101,7 +101,7 @@ const toggleSeeForecast = () => {
 <template>
   <div
     v-if="forecastWeather"
-    class="min-h-[calc(100dvh)] flex flex-col w-full items-center relative px-2 sm:px-10 pb-10 bg-cover bg-center bg-no-repeat"
+    class="h-[calc(100dvh)] max-h-[calc(100dvh)] flex flex-col w-full items-center relative px-2 sm:px-10 bg-cover bg-center bg-no-repeat"
     :class="computedClasses.background"
   >
     <CurrentWeather2
@@ -112,18 +112,22 @@ const toggleSeeForecast = () => {
       :see-forecast="seeForecast"
       @toggle-see-forecast="toggleSeeForecast"
     />
-    <Transition :duration="550" name="nested">
-      <ForecastToday
-        v-if="forecastWeather.forecast && seeForecast"
-        :forecast="forecastWeather.forecast"
-        :computed-classes="computedClasses"
-      />
-    </Transition>
-    <Forecast10Days
-      v-if="false"
-      :coords="coords"
-      :computed-classes="computedClasses"
-    />
+    <div class="flex w-full overflow-x-scroll flex-col h-full pb-4">
+      <Transition :duration="550" name="nested">
+        <ForecastToday
+          v-if="forecastWeather.forecast && seeForecast"
+          :forecast="forecastWeather.forecast"
+          :computed-classes="computedClasses"
+        />
+      </Transition>
+      <Transition :duration="550" name="nested">
+        <Forecast10Days
+          v-if="seeForecast"
+          :coords="coords"
+          :computed-classes="computedClasses"
+        />
+      </Transition>
+    </div>
   </div>
 </template>
 
