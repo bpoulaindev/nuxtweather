@@ -20,7 +20,7 @@ const timestamp = timestampForHour.unix();
     :class="computedClasses.cards?.bg"
   >
     <div
-      v-for="day in forecast.forecastday"
+      v-for="day in forecast.forecastday.slice(0, 3)"
       :key="day.date_epoch"
       class="flex w-auto items-center h-full"
     >
