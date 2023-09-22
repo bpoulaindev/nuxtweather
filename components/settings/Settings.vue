@@ -33,7 +33,7 @@ const props = defineProps<{
         side="bottom"
         :side-offset="5"
         :class="computedClasses.cards.bg"
-        class="rounded-xl p-3 w-[calc(90dvw)] over500:w-[465px] mr-1 shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] will-change-[transform,opacity] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade"
+        class="rounded-xl p-3 w-[calc(90dvw)] over500:w-[490px] mr-1 shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] will-change-[transform,opacity] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade"
       >
         <div class="flex flex-col gap-2.5">
           <h3 class="text-lg font-semibold" :class="computedClasses.text">

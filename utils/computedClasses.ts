@@ -18,6 +18,7 @@ export const useComputedClasses = (
         iconBg: "bg-white/60",
         button:
           "bg-purple-50 text-purple-600 hover:bg-purple-100 focus:ring-2 focus:ring-purple-300 focus:ring-offset-2 focus:ring-offset-purple-100",
+        ring: "ring-purple-300",
         ping: {
           bg: "bg-purple-400",
           ping: "bg-purple-500",
@@ -27,7 +28,7 @@ export const useComputedClasses = (
           text: "text-purple-800",
         },
         settings: {
-          trigger: "focus:ring-purple-600",
+          trigger: "focus:ring-purple-300",
           icon: "text-purple-800 group-hover:text-purple-700",
           arrow: "!fill-purple-50",
         },
@@ -38,6 +39,7 @@ export const useComputedClasses = (
         iconBg: "bg-teal-600/60",
         button:
           "bg-teal-50 text-teal-600 hover:bg-teal-100 focus:ring-2 focus:ring-teal-300 focus:ring-offset-2 focus:ring-offset-teal-50",
+        ring: "ring-teal-300",
         ping: {
           bg: "bg-teal-300",
           ping: "bg-teal-400",
@@ -47,7 +49,7 @@ export const useComputedClasses = (
           text: "text-teal-900",
         },
         settings: {
-          trigger: "focus:ring-teal-600",
+          trigger: "focus:ring-teal-300",
           icon: "text-teal-600 group-hover:text-teal-700",
           arrow: "!fill-teal-50",
         },
@@ -58,6 +60,7 @@ export const useComputedClasses = (
         iconBg: "bg-white/50",
         button:
           "bg-orange-50 text-orange-600 hover:bg-orange-100 focus:ring-2 focus:ring-orange-300 focus:ring-offset-2 focus:ring-offset-orange-50",
+        ring: "ring-orange-300",
         ping: {
           bg: "bg-orange-400",
           ping: "bg-orange-500",
@@ -67,7 +70,7 @@ export const useComputedClasses = (
           text: "text-orange-800",
         },
         settings: {
-          trigger: "focus:ring-orange-600",
+          trigger: "focus:ring-orange-300",
           icon: "text-orange-600 group-hover:text-orange-700",
           arrow: "!fill-orange-50",
         },

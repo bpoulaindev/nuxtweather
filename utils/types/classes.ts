@@ -3,6 +3,7 @@ export interface ComputedClasses {
   text: string;
   iconBg: string;
   button: string;
+  ring: string;
   ping: {
     bg: string;
     ping: string;

@@ -21,8 +21,8 @@ const tabs = computed(() => [
     current: theme.value === "default",
     classes:
       theme.value === "default"
-        ? props.computedClasses.button
-        : "bg-gray-50 text-gray-600 hover:bg-gray-100 ring-gray-300 ring-offset-gray-50",
+        ? `${props.computedClasses.button} ${props.computedClasses.ring}`
+        : "bg-gray-50 text-gray-600 hover:bg-gray-100 !ring-0 !ring-offset-0 !focus:none !outline-0",
   },
   {
     name: "Orange",
@@ -53,13 +53,14 @@ const changeTheme = (theme: Theme) => {
 
 <template>
   <div>
-    <nav class="flex space-x-2 flex-wrap" aria-label="Tabs">
+    <nav class="flex flex-wrap" aria-label="Tabs">
       <button
         v-for="tab in tabs"
         :key="tab.name"
-        class="relative rounded-lg px-2 py-1 text-sm xs:text-base font-semibold shadow-sm whitespace-nowrap"
-        :class="[tab.current && 'ring-2 ring-offset-2', tab.classes]"
+        class="relative rounded-lg px-2 py-1 mb-2 mr-2 text-sm xs:text-base font-semibold shadow-sm whitespace-nowrap outline-0"
+        :class="[tab.current && 'ring-2 ring-offset-2 active', tab.classes]"
         :aria-current="tab.current ? 'page' : undefined"
+        :autofocus="tab.current"
         @click="changeTheme(tab.id as Theme)"
       >
         {{ tab.name }}
