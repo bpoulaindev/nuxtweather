@@ -9,21 +9,6 @@ import Forecast10Days from "~/components/weather/forecast/Forecast10Days.vue";
 import CurrentWeather2 from "~/components/weather/current/CurrentWeather2.vue";
 import { useWeather } from "~/stores/weather";
 
-export interface ComputedClasses {
-  background: string;
-  text: string;
-  iconBg: string;
-  button: string;
-  ping?: {
-    bg: string;
-    ping: string;
-  };
-  cards?: {
-    bg: string;
-    text: string;
-  };
-}
-
 const props = defineProps<{
   coords: {
     latitude: number;
@@ -53,6 +38,7 @@ const toggleSeeForecast = () => {
     class="h-[calc(100dvh)] max-h-[calc(100dvh)] flex flex-col w-full items-center relative px-2 sm:px-10 bg-cover bg-center bg-no-repeat"
     :class="computedClasses.background"
   >
+    <Settings :computed-classes="computedClasses" />
     <CurrentWeather2
       v-if="weather.current && weather.location"
       :current="weather.current"

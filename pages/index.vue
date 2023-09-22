@@ -4,10 +4,10 @@ import Weather from "~/components/weather/Weather.vue";
 import { useGeoloc } from "~/stores/geoloc";
 
 useHead({
-  title: "Vuxt Weather",
+  title: "Nuxt Weather",
   meta: [
     {
-      name: "Vuxt Weather",
+      name: "Nuxt Weather",
       content:
         "Obtenez la météo en temps réel avec des prévisions sur la semaine.",
     },

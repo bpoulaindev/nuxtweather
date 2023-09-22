@@ -1,0 +1,69 @@
+<script setup lang="ts">
+import { ref, computed, Ref } from "vue";
+import { Theme } from "utils/types/theme";
+import { storeToRefs } from "pinia";
+import { ComputedClasses } from "~/utils/types/classes";
+import { useTheme } from "~/stores/theme";
+
+const props = defineProps<{
+  computedClasses: ComputedClasses;
+}>();
+
+// const theme = ref<Theme>((localStorage.getItem("theme") as Theme) ?? "default");
+const store = useTheme();
+const { theme } = storeToRefs(store);
+console.log("this is the received theme", theme);
+
+const tabs = computed(() => [
+  {
+    name: "Par défaut",
+    id: "default",
+    current: theme.value === "default",
+    classes:
+      theme.value === "default"
+        ? props.computedClasses.button
+        : "bg-gray-50 text-gray-600 hover:bg-gray-100 ring-gray-300 ring-offset-gray-50",
+  },
+  {
+    name: "Orange",
+    id: "orange",
+    current: theme.value === "orange",
+    classes:
+      "bg-orange-50 text-orange-600 hover:bg-orange-100 ring-orange-300 ring-offset-orange-50",
+  },
+  {
+    name: "Menthe",
+    id: "mint",
+    current: theme.value === "mint",
+    classes:
+      "bg-teal-50 text-teal-600 hover:bg-teal-100 ring-teal-300 ring-offset-teal-50",
+  },
+  {
+    name: "Violet",
+    id: "purple",
+    current: theme.value === "purple",
+    classes:
+      "bg-purple-100 text-purple-800 hover:bg-purple-100 ring-purple-300 ring-offset-purple-50",
+  },
+]);
+const changeTheme = (theme: Theme) => {
+  store.setTheme(theme);
+};
+</script>
+
+<template>
+  <div>
+    <nav class="flex space-x-2 flex-wrap" aria-label="Tabs">
+      <button
+        v-for="tab in tabs"
+        :key="tab.name"
+        class="relative rounded-lg px-2 py-1 text-sm xs:text-base font-semibold shadow-sm whitespace-nowrap"
+        :class="[tab.current && 'ring-2 ring-offset-2', tab.classes]"
+        :aria-current="tab.current ? 'page' : undefined"
+        @click="changeTheme(tab.id as Theme)"
+      >
+        {{ tab.name }}
+      </button>
+    </nav>
+  </div>
+</template>

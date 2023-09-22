@@ -2,9 +2,9 @@
 import { ref, watchEffect } from "vue";
 import dayjs from "dayjs";
 import { CalendarDaysIcon } from "@heroicons/vue/20/solid";
+import { ComputedClasses } from "utils/types/classes";
 import { ForecastTodayData } from "~/utils/types/weather";
 import DaysForecast from "~/components/weather/forecast/days_forecast/DaysForecast.vue";
-import { ComputedClasses } from "~/components/weather/Weather.vue";
 
 const props = defineProps<{
   forecastWeather: ForecastTodayData["forecast"];

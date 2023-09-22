@@ -3,8 +3,8 @@ import dayjs from "dayjs";
 import locale from "dayjs/locale/fr";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import { Ref } from "vue";
+import { ComputedClasses } from "utils/types/classes";
 import { CurrentWeatherData, LocationData } from "~/utils/types/weather";
-import { ComputedClasses } from "~/components/weather/Weather.vue";
 
 const props = defineProps<{
   location: LocationData;
@@ -37,7 +37,7 @@ const computedText = computed(() => {
       >{{ dayjs().locale("fr").format("LLLL").split(`${dayjs().year()}`)?.[0] }}
     </span>
     <span
-      class="flex items-start text-9xl xs:text-10xl font-semibold sm:font-light font-sentient pl-3 xs:pl-4"
+      class="flex items-start text-9xl xs:text-10xl font-semibold sm:font-bold font-sentient pl-3 xs:pl-4"
       :class="computedClasses.text"
     >
       {{ current.temp_c }}
