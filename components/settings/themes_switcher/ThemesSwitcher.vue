@@ -12,7 +12,6 @@ const props = defineProps<{
 // const theme = ref<Theme>((localStorage.getItem("theme") as Theme) ?? "default");
 const store = useTheme();
 const { theme } = storeToRefs(store);
-console.log("this is the received theme", theme);
 
 const tabs = computed(() => [
   {
@@ -25,9 +24,9 @@ const tabs = computed(() => [
         : "bg-gray-50 text-gray-600 hover:bg-gray-100 !ring-0 !ring-offset-0 !focus:none !outline-0",
   },
   {
-    name: "Orange",
-    id: "orange",
-    current: theme.value === "orange",
+    name: "Abricot",
+    id: "apricot",
+    current: theme.value === "apricot",
     classes:
       "bg-orange-50 text-orange-600 hover:bg-orange-100 ring-orange-300 ring-offset-orange-50",
   },
@@ -39,11 +38,25 @@ const tabs = computed(() => [
       "bg-teal-50 text-teal-600 hover:bg-teal-100 ring-teal-300 ring-offset-teal-50",
   },
   {
-    name: "Violet",
-    id: "purple",
-    current: theme.value === "purple",
+    name: "Lavande",
+    id: "lavender",
+    current: theme.value === "lavender",
     classes:
       "bg-purple-100 text-purple-800 hover:bg-purple-100 ring-purple-300 ring-offset-purple-50",
+  },
+  {
+    name: "Cerise",
+    id: "cherry",
+    current: theme.value === "cherry",
+    classes:
+      "bg-red-100 text-red-800 hover:bg-red-100 ring-red-300 ring-offset-red-50",
+  },
+  {
+    name: "Océan",
+    id: "ocean",
+    current: theme.value === "ocean",
+    classes:
+      "bg-blue-100 text-blue-800 hover:bg-blue-100 ring-blue-300 ring-offset-blue-50",
   },
 ]);
 const changeTheme = (theme: Theme) => {

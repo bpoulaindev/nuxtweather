@@ -14,23 +14,21 @@ export const useWeather = defineStore("weather", {
   }),
   actions: {
     async fetchWeather() {
-      const { coords } = useGeoloc();
+      const { coords, hasValidCoords } = useGeoloc();
       const oldWeather = JSON.parse(localStorage.getItem("WEATHER") ?? "{}");
       if (
         oldWeather.weather &&
         oldWeather.timestamp > dayjs().subtract(15, "minutes").valueOf()
       ) {
-        console.log("using previous weather data");
         this.weather = oldWeather.weather;
         return;
       }
       try {
-        console.log("a weather fetch has been triggered");
         const { data } = await useFetch("/api/weather", {
           method: "POST",
           params: {
-            lat: coords.latitude,
-            lon: coords.longitude,
+            lat: coords?.latitude ?? "50",
+            lon: coords?.longitude ?? "3,6",
             days: 10,
           },
           pick: ["forecast"],

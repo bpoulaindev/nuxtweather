@@ -34,8 +34,8 @@ const toggleSeeForecast = () => {
 </script>
 <template>
   <div
-    v-if="weather"
-    class="h-[calc(100dvh)] max-h-[calc(100dvh)] flex flex-col w-full items-center relative px-2 sm:px-10 bg-cover bg-center bg-no-repeat"
+    v-if="weather && computedClasses"
+    class="h-[calc(100dvh)] max-h-[calc(100dvh)] flex flex-col w-[calc(100dvw)] items-center relative px-2 sm:px-10 bg-cover bg-center bg-no-repeat"
     :class="computedClasses.background"
   >
     <Settings :computed-classes="computedClasses" />
@@ -49,7 +49,7 @@ const toggleSeeForecast = () => {
     />
     <div
       v-if="weather.forecast"
-      class="flex w-full overflow-x-scroll flex-col h-full mb-2 rounded-xl"
+      class="flex w-full overflow-x-scroll overscroll-contain flex-col h-full mb-2 rounded-xl"
     >
       <Transition
         :duration="{

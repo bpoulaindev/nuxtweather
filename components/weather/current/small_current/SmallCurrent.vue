@@ -24,7 +24,6 @@ const props = defineProps<{
   icon: string;
   value: string;
 }>();
-console.log("sisi la famille", props.icon);
 const svgIcon = defineAsyncComponent(() => {
   /* @vite-ignore */
   return import(props.icon);

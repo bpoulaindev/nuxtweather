@@ -1,1 +1,7 @@
-export type Theme = "default" | "orange" | "mint" | "purple";
+export type Theme =
+  | "default"
+  | "apricot"
+  | "mint"
+  | "lavender"
+  | "ocean"
+  | "cherry";

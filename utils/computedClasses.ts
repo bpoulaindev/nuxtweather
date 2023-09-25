@@ -12,8 +12,50 @@ export const useComputedClasses = (
     const store = useTheme();
     const { theme } = storeToRefs(store);
     const themedClasses = {
-      purple: {
-        background: "!bg-[url('/assets/background/purple.png')]",
+      ocean: {
+        background: "!bg-[url('/assets/background/ocean.png')]",
+        text: "text-blue-800",
+        iconBg: "bg-white/60",
+        button:
+          "bg-blue-50 text-blue-600 hover:bg-blue-100 focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 focus:ring-offset-blue-100",
+        ring: "ring-blue-300",
+        ping: {
+          bg: "bg-blue-400",
+          ping: "bg-blue-500",
+        },
+        cards: {
+          bg: "bg-blue-50",
+          text: "text-blue-800",
+        },
+        settings: {
+          trigger: "focus:ring-blue-300",
+          icon: "text-blue-600 group-hover:text-blue-700",
+          arrow: "!fill-blue-50",
+        },
+      },
+      cherry: {
+        background: "!bg-[url('/assets/background/cherry.png')]",
+        text: "text-red-800",
+        iconBg: "bg-white/60",
+        button:
+          "bg-red-50 text-red-600 hover:bg-red-100 focus:ring-2 focus:ring-red-300 focus:ring-offset-2 focus:ring-offset-red-100",
+        ring: "ring-red-300",
+        ping: {
+          bg: "bg-red-400",
+          ping: "bg-red-500",
+        },
+        cards: {
+          bg: "bg-red-50",
+          text: "text-red-800",
+        },
+        settings: {
+          trigger: "focus:ring-red-300",
+          icon: "text-red-600 group-hover:text-red-700",
+          arrow: "!fill-red-50",
+        },
+      },
+      lavender: {
+        background: "!bg-[url('/assets/background/lavender.png')]",
         text: "text-purple-800",
         iconBg: "bg-white/60",
         button:
@@ -54,8 +96,8 @@ export const useComputedClasses = (
           arrow: "!fill-teal-50",
         },
       },
-      orange: {
-        background: "!bg-[url('/assets/background/orange.png')]",
+      apricot: {
+        background: "!bg-[url('/assets/background/apricot.png')]",
         text: "text-orange-800",
         iconBg: "bg-white/50",
         button:
@@ -79,12 +121,14 @@ export const useComputedClasses = (
     if (theme.value !== "default") {
       return themedClasses[theme.value];
     } else if (currentTime > 19 || currentTime < 8) {
-      return themedClasses.purple;
+      return themedClasses.lavender;
     } else if (currentTemp < 15 || isRaining) {
       return themedClasses.mint;
     } else if (currentTemp >= 15) {
-      return themedClasses.orange;
+      return themedClasses.apricot;
+    } else if (currentTemp >= 25) {
+      return themedClasses.cherry;
     } else {
-      return themedClasses.purple;
+      return themedClasses.lavender;
     }
   }) as ComputedRef<ComputedClasses>;

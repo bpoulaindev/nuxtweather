@@ -7,7 +7,6 @@ export const useTheme = defineStore("theme", {
   }),
   actions: {
     setTheme(theme: Theme) {
-      console.log("received new theme", theme);
       localStorage.setItem("THEME", theme);
       this.theme = theme;
     },
