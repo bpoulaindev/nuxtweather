@@ -13,7 +13,7 @@ export const useComputedClasses = (
     const { theme } = storeToRefs(store);
     const themedClasses = {
       ocean: {
-        background: "!bg-[url('/assets/background/ocean.png')]",
+        background: "!bg-[url('/assets/background/ocean_xl.png')]",
         text: "text-blue-800",
         iconBg: "bg-white/60",
         button:
@@ -34,7 +34,7 @@ export const useComputedClasses = (
         },
       },
       cherry: {
-        background: "!bg-[url('/assets/background/cherry.png')]",
+        background: "!bg-[url('/assets/background/cherry_xl.png')]",
         text: "text-red-800",
         iconBg: "bg-white/60",
         button:
@@ -55,7 +55,7 @@ export const useComputedClasses = (
         },
       },
       lavender: {
-        background: "!bg-[url('/assets/background/lavender.png')]",
+        background: "!bg-[url('/assets/background/lavender_xl.png')]",
         text: "text-purple-800",
         iconBg: "bg-white/60",
         button:
@@ -76,7 +76,7 @@ export const useComputedClasses = (
         },
       },
       mint: {
-        background: "!bg-[url('/assets/background/mint.png')]",
+        background: "!bg-[url('/assets/background/mint_xl.png')]",
         text: "text-teal-600",
         iconBg: "bg-teal-600/60",
         button:
@@ -97,7 +97,7 @@ export const useComputedClasses = (
         },
       },
       apricot: {
-        background: "!bg-[url('/assets/background/apricot.png')]",
+        background: "!bg-[url('/assets/background/apricot_xl.png')]",
         text: "text-orange-800",
         iconBg: "bg-white/50",
         button:
