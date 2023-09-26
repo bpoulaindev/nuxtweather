@@ -1,39 +1,45 @@
 import { defineStore } from "pinia";
-import { useGeolocation } from "@vueuse/core";
-import { computed, ref, watch } from "vue";
+import dayjs from "dayjs";
+
+interface GeolocStore {
+  coords: { latitude: number; longitude: number } | null;
+  error: GeolocationPositionError | null;
+}
 
 export const useGeoloc = defineStore("geoloc", {
-  state: () => ({
-    coords: {
-      latitude: 0,
-      longitude: 0,
-    } as {
-      latitude: number;
-      longitude: number;
-    },
-    error: null as GeolocationPositionError | null,
-    hasValidCoords: false,
+  state: (): GeolocStore => ({
+    coords: null,
+    error: null,
   }),
   actions: {
-    fetchGeoloc() {
-      const { coords, error } = useGeolocation();
-      watch(error, (newError, oldError) => {
-        if (newError) {
-          this.error = newError;
-        }
-      });
-      watch(coords, (newCoords, oldCoords) => {
+    async fetchGeoloc() {
+      try {
+        const oldGeoloc = JSON.parse(localStorage.getItem("GEOLOC") ?? "{}");
         if (
-          typeof newCoords?.latitude === "number" &&
-          typeof newCoords?.longitude === "number"
+          oldGeoloc.coords &&
+          oldGeoloc.timestamp > dayjs().subtract(15, "minutes").valueOf()
         ) {
-          this.coords = {
-            latitude: newCoords.latitude,
-            longitude: newCoords.longitude,
-          };
-          this.hasValidCoords = true;
+          this.coords = oldGeoloc.coords;
+          return;
         }
-      });
+        const position = await new Promise<GeolocationPosition>(
+          (resolve, reject) =>
+            navigator.geolocation.getCurrentPosition(resolve, reject),
+        );
+        this.coords = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        };
+        localStorage.setItem(
+          "GEOLOC",
+          JSON.stringify({
+            coords: this.coords,
+            timestamp: dayjs().valueOf(),
+          }),
+        );
+      } catch (error) {
+        this.error = error as GeolocationPositionError;
+      }
     },
   },
 });

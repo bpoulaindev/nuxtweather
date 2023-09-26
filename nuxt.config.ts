@@ -12,6 +12,9 @@ export default {
   },
   alias: {
     utils: path.resolve(__dirname, "utils"),
+    assets: path.resolve(__dirname, "assets"),
+    components: path.resolve(__dirname, "components"),
+    stores: path.resolve(__dirname, "stores"),
   },
   devtools: { enabled: true },
   typescript: {
@@ -34,5 +37,8 @@ export default {
     port: 3000,
     host: "https://localhost",
     https: true,
+  },
+  experimental: {
+    renderJsonPayloads: false,
   },
 };

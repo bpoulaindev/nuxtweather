@@ -34,6 +34,6 @@ const { error } = storeToRefs(store);
         </p>
       </div>
     </div>
-    <LocationError v-if="error" :error="error" />
+    <LocationError v-if="error?.code === 1" :error="error" />
   </div>
 </template>

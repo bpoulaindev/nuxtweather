@@ -21,21 +21,14 @@ useHead({
     },
   ],
 });
-const locationRef = ref({
-  coords: {
-    latitude: 0,
-    longitude: 0,
-  },
-  hasValidCoords: false,
-});
 
 const store = useGeoloc();
-const { hasValidCoords, coords } = storeToRefs(store);
+const { coords, error } = storeToRefs(store);
 </script>
 
 <template>
   <div>
-    <Weather v-if="hasValidCoords" :coords="coords" />
-    <NoLocation v-else />
+    <NoLocation v-if="coords === null" />
+    <Weather v-else :coords="coords" />
   </div>
 </template>

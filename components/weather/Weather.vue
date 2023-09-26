@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
-import { computed, ComputedRef, ref, watchEffect } from "vue";
+import { ref } from "vue";
 import { useComputedClasses } from "utils/computedClasses";
 import { storeToRefs } from "pinia";
-import { ForecastTodayData } from "~/utils/types/weather";
 import ForecastToday from "~/components/weather/forecast/ForecastToday.vue";
 import Forecast10Days from "~/components/weather/forecast/Forecast10Days.vue";
 import CurrentWeather2 from "~/components/weather/current/CurrentWeather2.vue";

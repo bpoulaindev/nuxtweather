@@ -14,7 +14,10 @@ export const useWeather = defineStore("weather", {
   }),
   actions: {
     async fetchWeather() {
-      const { coords, hasValidCoords } = useGeoloc();
+      const { coords } = useGeoloc();
+      if (!coords) {
+        return;
+      }
       const oldWeather = JSON.parse(localStorage.getItem("WEATHER") ?? "{}");
       if (
         oldWeather.weather &&
@@ -37,7 +40,7 @@ export const useWeather = defineStore("weather", {
         localStorage.setItem(
           "WEATHER",
           JSON.stringify({
-            weather: this.weather,
+            weather: data?.value?.forecast,
             timestamp: dayjs().valueOf(),
           } as LocalWeatherStore),
         );
