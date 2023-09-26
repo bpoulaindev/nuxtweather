@@ -1,20 +1,11 @@
-import { afterAll, beforeEach, describe, expect, test, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { createPinia, setActivePinia, storeToRefs } from "pinia";
 import { useGeoloc } from "stores/geoloc";
+import { initTestEnvironment } from "stores/__tests__/init";
 
 describe("Geoloc Store", () => {
-  const mockedGeolocation = {
-    getCurrentPosition: vi.fn((success, _error, _options) => {
-      success({
-        coords: {
-          latitude: 50.63297,
-          longitude: 3.05858,
-          accuracy: 0,
-        },
-      });
-    }),
-    watchPosition: vi.fn(),
-  };
+  const { localStorageMock, mockedGeolocation } = initTestEnvironment();
+  Object.defineProperty(global, "localStorage", { value: localStorageMock });
   Object.defineProperty(global.navigator, "geolocation", {
     writable: true,
     value: mockedGeolocation,
@@ -22,17 +13,10 @@ describe("Geoloc Store", () => {
   beforeEach(() => {
     setActivePinia(createPinia());
   });
-  afterAll(() => {
+  afterEach(() => {
+    global.localStorage.removeItem("GEOLOC");
     const geolocStore = useGeoloc();
     geolocStore.$reset();
-    Object.defineProperty(global.navigator, "permissions", {
-      writable: true,
-      value: {
-        query: vi
-          .fn()
-          .mockImplementation(() => Promise.resolve({ state: "granted" })),
-      },
-    });
   });
   test("fetchGeoloc should set coords", async () => {
     Object.defineProperty(global.navigator, "permissions", {
@@ -58,9 +42,8 @@ describe("Geoloc Store", () => {
       },
     });
     const geolocStore = useGeoloc();
-    const { coords, error } = storeToRefs(geolocStore);
+    const { error } = storeToRefs(geolocStore);
     await geolocStore.fetchGeoloc();
-    console.log("error", coords.value, error.value);
     expect(error.value).not.toBeNull();
   });
 });

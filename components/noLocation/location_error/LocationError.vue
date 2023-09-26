@@ -7,7 +7,6 @@ const props = defineProps<{
     message: string;
   };
 }>();
-console.log("oye oye", props.error);
 </script>
 
 <template>

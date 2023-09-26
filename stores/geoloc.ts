@@ -22,6 +22,16 @@ export const useGeoloc = defineStore("geoloc", {
           this.coords = oldGeoloc.coords;
           return;
         }
+        const permission = await navigator.permissions.query({
+          name: "geolocation",
+        });
+        if (permission.state === "denied") {
+          this.error = {
+            code: 1,
+            message: "Geolocation permission denied",
+          } as GeolocationPositionError;
+          return;
+        }
         const position = await new Promise<GeolocationPosition>(
           (resolve, reject) =>
             navigator.geolocation.getCurrentPosition(resolve, reject),
