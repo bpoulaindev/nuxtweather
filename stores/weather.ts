@@ -37,6 +37,7 @@ export const useWeather = defineStore("weather", {
           },
           pick: ["forecast"],
         });
+        console.log("weather has been retrieved", data?.value);
         this.weather = data?.value?.forecast as ForecastTodayData;
         localStorage.setItem(
           "WEATHER",

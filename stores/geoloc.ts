@@ -4,43 +4,81 @@ import dayjs from "dayjs";
 interface GeolocStore {
   coords: { latitude: number; longitude: number } | null;
   error: GeolocationPositionError | null;
+  permission: PermissionStatus["state"];
 }
 
 export const useGeoloc = defineStore("geoloc", {
   state: (): GeolocStore => ({
     coords: null,
     error: null,
+    permission: "prompt",
   }),
   actions: {
-    async fetchGeoloc() {
+    async initializeState() {
       try {
-        // @ts-ignore
-        const oldGeoloc = JSON.parse(localStorage.getItem("GEOLOC") ?? "{}");
-        if (
-          oldGeoloc.coords &&
-          oldGeoloc.timestamp > dayjs().subtract(15, "minutes").valueOf()
-        ) {
-          this.coords = oldGeoloc.coords;
-          return;
-        }
+        this.recycleLocalStorage();
         const permission = await navigator.permissions.query({
           name: "geolocation",
         });
-        if (permission.state === "denied") {
-          this.error = {
-            code: 1,
-            message: "Geolocation permission denied",
-          } as GeolocationPositionError;
-          return;
-        }
-        const position = await new Promise<GeolocationPosition>(
-          (resolve, reject) =>
-            navigator.geolocation.getCurrentPosition(resolve, reject),
-        );
+        this.permission = permission.state;
+      } catch (error) {
+        this.error = error as GeolocationPositionError;
+        console.error("Error reading permission:", error);
+      }
+    },
+    async updatePermission() {
+      try {
+        const permission = await navigator.permissions.query({
+          name: "geolocation",
+        });
+        const position = await this.getPosition({
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 20 * 60 * 1000,
+        });
         this.coords = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         };
+        this.permission = permission.state;
+      } catch (error) {
+        this.error = error as GeolocationPositionError;
+        console.error("Error updating permission:", error);
+      }
+    },
+    async fetchGeoloc() {
+      const options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 20 * 60 * 1000,
+      };
+      try {
+        if (this.permission === "prompt" || this.permission === "granted") {
+          const position = await this.getPosition(options);
+          this.coords = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          };
+          this.recycleLocalStorage();
+          this.updateLocalStorage();
+        } else if (this.permission === "denied") {
+          this.error = {
+            code: 1,
+            message: "Geolocation permission denied",
+          } as GeolocationPositionError;
+        }
+      } catch (error) {
+        this.error = error as GeolocationPositionError;
+        console.error("Error fetching geolocation:", error);
+      }
+    },
+    getPosition(options: PositionOptions) {
+      return new Promise<GeolocationPosition>((resolve, reject) => {
+        navigator.geolocation.watchPosition(resolve, reject, options);
+      });
+    },
+    updateLocalStorage() {
+      try {
         localStorage.setItem(
           "GEOLOC",
           JSON.stringify({
@@ -49,7 +87,19 @@ export const useGeoloc = defineStore("geoloc", {
           }),
         );
       } catch (error) {
-        this.error = error as GeolocationPositionError;
+        console.error("Error updating local storage:", error);
+      }
+    },
+    recycleLocalStorage() {
+      const oldGeoloc = JSON.parse(localStorage.getItem("GEOLOC") ?? "{}");
+      if (
+        oldGeoloc.coords &&
+        oldGeoloc.timestamp > dayjs().subtract(20, "minutes").valueOf()
+      ) {
+        console.log("recycling local storage");
+        this.coords = oldGeoloc.coords;
+      } else {
+        console.log("local storage is empty or too old");
       }
     },
   },

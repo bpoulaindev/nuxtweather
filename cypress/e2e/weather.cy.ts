@@ -13,25 +13,13 @@ describe("Weather Store", () => {
   it("Loads without geoloc", () => {
     cy.visit("/", {
       onBeforeLoad({ navigator }) {
-        cy.stub(navigator.geolocation, "getCurrentPosition").callsArgWith(0, {
-          permission: "denied",
-        });
-      },
-    });
-  });
-  it("Loads without geoloc", () => {
-    // Mock geolocation permission as "denied"
-
-    cy.visit("/", {
-      onBeforeLoad({ navigator }) {
         cy.stub(navigator.geolocation, "getCurrentPosition").resetBehavior();
       },
     });
     cy.window()
       .its("navigator.geolocation.getCurrentPosition")
       .should("be.called");
-    // Assert that your application handles denied geolocation permission
-    cy.get("[data-cy=geolocation-denied-message]").should("exist");
+    cy.findByText("Accès à la géolocalisation refusé").should("exist");
   });
   it("Loads with geoloc", () => {
     cy.visit("/", {
@@ -50,7 +38,23 @@ describe("Weather Store", () => {
       .should("have.text", "Lille");
     cy.get("[data-cy=current-temp]").should("exist");
   });
-  it("Opens weather forecast", () => {
+  /* it("Opens weather forecast", () => {
+                    cy.visit("/", {
+                      onBeforeLoad({ navigator }) {
+                        const latitude = 50.633333;
+                        const longitude = 3.066667;
+                        cy.stub(navigator.geolocation, "getCurrentPosition").callsArgWith(0, {
+                          coords: { latitude, longitude },
+                        });
+                      },
+                    });
+                    cy.get("[data-cy=forecast-today]").should("not.exist");
+                    cy.get("[data-cy=forecast-10-days]").should("not.exist");
+                    cy.get("[data-cy=toggle-forecast-button]").click();
+                    cy.get("[data-cy=forecast-today]").should("exist").should("be.visible");
+                    cy.get("[data-cy=forecast-10-days]").should("exist").should("be.visible");
+                  }); */
+  it("Open and close weather forecast", () => {
     cy.visit("/", {
       onBeforeLoad({ navigator }) {
         const latitude = 50.633333;
@@ -60,11 +64,10 @@ describe("Weather Store", () => {
         });
       },
     });
-    cy.get("[data-cy=forecast-today]").should("not.exist");
-    cy.get("[data-cy=forecast-10-days]").should("not.exist");
-    cy.get("[data-cy=toggle-forecast-button]").click();
-    cy.get("[data-cy=forecast-today]").should("exist").should("be.visible");
-    cy.get("[data-cy=forecast-10-days]").should("exist").should("be.visible");
+    cy.findByText("Lille").should("exist");
+    cy.findByText("Voir les prévisions").click();
+    cy.findByText("Maint.").should("exist");
+    cy.findByText("Auj.").should("exist");
     cy.get("[data-cy=small-forecast]")
       .should("exist")
       .should("satisfy", ($el) => ($el.length = 24));
@@ -72,5 +75,10 @@ describe("Weather Store", () => {
       .should("exist")
       .should("be.visible")
       .should("have.length", 10);
+    cy.findByText("Masquer les prévisions").should("exist").click();
+    cy.findByText("Voir les prévisions").should("exist");
+    cy.get("[data-cy=small-forecast]").should("not.exist");
+    cy.get("[data-cy=days-forecast]").should("not.exist");
   });
+  it("Chan");
 });

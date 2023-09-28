@@ -3,17 +3,15 @@ import dayjs from "dayjs";
 import { ref } from "vue";
 import { useComputedClasses } from "utils/computedClasses";
 import { storeToRefs } from "pinia";
+import { useGeoloc } from "stores/geoloc";
+import { useWindowSize } from "@vueuse/core";
 import ForecastToday from "~/components/weather/forecast/ForecastToday.vue";
 import Forecast10Days from "~/components/weather/forecast/Forecast10Days.vue";
 import CurrentWeather2 from "~/components/weather/current/CurrentWeather2.vue";
 import { useWeather } from "~/stores/weather";
 
-const props = defineProps<{
-  coords: {
-    latitude: number;
-    longitude: number;
-  };
-}>();
+const geolocStore = useGeoloc();
+await geolocStore.fetchGeoloc();
 const store = useWeather();
 await store.fetchWeather();
 const { weather } = storeToRefs(store);
@@ -30,6 +28,7 @@ const seeForecast = ref(false);
 const toggleSeeForecast = () => {
   seeForecast.value = !seeForecast.value;
 };
+const { width, height } = useWindowSize();
 </script>
 
 <template>
@@ -39,6 +38,19 @@ const toggleSeeForecast = () => {
     class="data-test=weather-current h-[calc(100dvh)] max-h-[calc(100dvh)] flex flex-col w-[calc(100dvw)] items-center relative px-2 sm:px-10 bg-cover bg-center bg-no-repeat"
     :class="computedClasses.background"
   >
+    <NuxtImg
+      class="absolute top-0 left-0 w-full h-full h-[calc(100dvh)] max-h-[calc(100dvh)] w-auto object-cover object-center z-[-1]"
+      :src="
+        width > 640
+          ? computedClasses.background.desktop
+          : computedClasses.background.mobile
+      "
+      gravity="center"
+      :height="height"
+      :alt="`background image for ${weather.location.name}`"
+      provider="cloudinary"
+      fit="crop"
+    />
     <Settings :computed-classes="computedClasses" />
     <CurrentWeather2
       v-if="weather.current && weather.location"

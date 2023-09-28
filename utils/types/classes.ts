@@ -1,5 +1,8 @@
 export interface ComputedClasses {
-  background: string;
+  background: {
+    mobile: string;
+    desktop: string;
+  };
   text: string;
   iconBg: string;
   button: string;

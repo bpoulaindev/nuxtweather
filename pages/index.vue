@@ -23,12 +23,45 @@ useHead({
 });
 
 const store = useGeoloc();
-const { coords, error } = storeToRefs(store);
+const { coords, error, permission } = storeToRefs(store);
+onMounted(async () => {
+  await store.initializeState();
+  watch(permission, async (newPermission) => {
+    console.log("triggering watch", permission.value, newPermission);
+    if (newPermission === "granted") {
+      await store.fetchGeoloc();
+    }
+  });
+});
 </script>
 
 <template>
   <Suspense>
-    <NoLocation v-if="coords === null" />
-    <Weather v-else :coords="coords" />
+    <Suspense v-if="permission === 'granted'">
+      <client-only>
+        <Weather />
+      </client-only>
+
+      <template #fallback>
+        <div
+          class="flex w-[calc(100dvw)] h-calc(100dvh)] items-center justify-center bg-red-300"
+        >
+          <h3>Chargement...</h3>
+        </div>
+      </template>
+    </Suspense>
+    <Suspense v-else>
+      <client-only>
+        <NoLocation :store-permission="permission" />
+      </client-only>
+
+      <template #fallback>
+        <div
+          class="flex w-[calc(100dvw)] h-calc(100dvh)] items-center justify-center bg-red-300"
+        >
+          <h3>Chargement ENCORE...</h3>
+        </div>
+      </template>
+    </Suspense>
   </Suspense>
 </template>

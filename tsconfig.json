@@ -4,7 +4,9 @@
   "compilerOptions": {
     "module": "es2022",
     "types": [
-      "vitest/globals"
+      "cypress",
+      "vitest/globals",
+      "@testing-library/cypress"
     ]
   },
   "paths": {

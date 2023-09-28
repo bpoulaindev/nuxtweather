@@ -47,6 +47,7 @@ const computedText = computed(() => {
     </span>
     <button
       type="button"
+      role="button"
       name="toggle-forecast"
       class="relative rounded-lg px-2 py-1 text-sm xs:text-base font-semibold shadow-sm"
       :class="computedClasses.button"
