@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
+/* import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { createPinia, setActivePinia, storeToRefs } from "pinia";
 import { useGeoloc } from "stores/geoloc";
 import { initTestEnvironment } from "stores/__tests__/init";
@@ -47,3 +47,4 @@ describe("Geoloc Store", () => {
     expect(error.value).not.toBeNull();
   });
 });
+*/

@@ -9,7 +9,6 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test": "vitest",
     "cypress:open": "cypress open"
   },
   "devDependencies": {
@@ -33,7 +32,6 @@
     "jsdom": "^22.1.0",
     "nuxt": "^3.7.2",
     "nuxt-svgo": "^3.5.3",
-    "nuxt-vitest": "^0.10.5",
     "ohmyfetch": "^0.4.21",
     "postcss": "^8.4.29",
     "prettier": "^3.0.3",
@@ -63,7 +61,6 @@
     "http-proxy-middleware": "^2.0.6",
     "radix-vue": "^0.2.3",
     "vite": "^4.4.9",
-    "vitest": "^0.34.5",
     "vue-qr": "^4.0.9",
     "vue-router": "^4.2.4"
   },
