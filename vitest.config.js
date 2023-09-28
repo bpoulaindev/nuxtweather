@@ -1,14 +1,9 @@
-import { defineConfig } from "vite";
+import { defineVitestConfig } from "nuxt-vitest/config";
 import vue from "@vitejs/plugin-vue";
 
-export default defineConfig({
-  plugins: [vue()],
+export default defineVitestConfig({
   test: {
     globals: true,
-    environment: "jsdom",
-    browser: {
-      enabled: true,
-      name: "chrome",
-    },
+    environment: "happy-dom",
   },
 });

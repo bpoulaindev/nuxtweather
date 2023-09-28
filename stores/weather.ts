@@ -15,6 +15,7 @@ export const useWeather = defineStore("weather", {
   actions: {
     async fetchWeather() {
       const { coords } = useGeoloc();
+      console.log("please make it work", coords);
       if (!coords) {
         return;
       }

@@ -27,6 +27,7 @@ const today = dayjs().day();
   <div
     class="w-full flex flex-col rounded-xl items-start mt-2 p-1 xs:p-2 h-auto"
     :class="computedClasses.cards?.bg"
+    data-cy="forecast-10-days"
   >
     <h3
       class="flex items-center xs:mt-0 pb-1 ml-1/2 text-sm xs:text-base xs:pb-1.5 font-medium xs:font-medium"
@@ -38,6 +39,7 @@ const today = dayjs().day();
     <DaysForecast
       v-for="(day, index) in forecastWeather?.forecastday"
       :key="day.date_epoch"
+      data-cy="days-forecast"
       :is-now="index === 0"
       :text-color="computedClasses.cards?.text"
       :day="

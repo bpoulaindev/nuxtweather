@@ -26,6 +26,9 @@ const props = defineProps<{
 }>();
 const svgIcon = defineAsyncComponent(() => {
   /* @vite-ignore */
-  return import(props.icon);
+  return import(
+    /* @vite-ignore */
+    props.icon
+  );
 });
 </script>

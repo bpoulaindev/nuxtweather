@@ -14,6 +14,7 @@ export const useGeoloc = defineStore("geoloc", {
   actions: {
     async fetchGeoloc() {
       try {
+        // @ts-ignore
         const oldGeoloc = JSON.parse(localStorage.getItem("GEOLOC") ?? "{}");
         if (
           oldGeoloc.coords &&

@@ -7,6 +7,7 @@ import LocationError from "~/components/noLocation/location_error/LocationError.
 const store = useGeoloc();
 store.fetchGeoloc();
 const { error } = storeToRefs(store);
+console.log("hello hello ladies and gentleman", error.value);
 </script>
 
 <template>
@@ -34,6 +35,6 @@ const { error } = storeToRefs(store);
         </p>
       </div>
     </div>
-    <LocationError v-if="error?.code === 1" :error="error" />
+    <LocationError v-if="error" :error="error" />
   </div>
 </template>

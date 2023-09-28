@@ -10,7 +10,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="w-full flex flex-col mt-4">
+  <div class="w-full flex flex-col mt-4" data-cy="geolocation-denied-message">
     <div class="rounded-md bg-red-50 p-2">
       <div class="flex flex-col">
         <div class="flex items-center justify-center">

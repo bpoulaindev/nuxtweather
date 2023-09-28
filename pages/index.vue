@@ -27,8 +27,8 @@ const { coords, error } = storeToRefs(store);
 </script>
 
 <template>
-  <div>
+  <Suspense>
     <NoLocation v-if="coords === null" />
     <Weather v-else :coords="coords" />
-  </div>
+  </Suspense>
 </template>

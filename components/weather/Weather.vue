@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script async setup lang="ts">
 import dayjs from "dayjs";
 import { ref } from "vue";
 import { useComputedClasses } from "utils/computedClasses";
@@ -31,10 +31,12 @@ const toggleSeeForecast = () => {
   seeForecast.value = !seeForecast.value;
 };
 </script>
+
 <template>
   <div
     v-if="weather && computedClasses"
-    class="h-[calc(100dvh)] max-h-[calc(100dvh)] flex flex-col w-[calc(100dvw)] items-center relative px-2 sm:px-10 bg-cover bg-center bg-no-repeat"
+    data-cy="weather-component"
+    class="data-test=weather-current h-[calc(100dvh)] max-h-[calc(100dvh)] flex flex-col w-[calc(100dvw)] items-center relative px-2 sm:px-10 bg-cover bg-center bg-no-repeat"
     :class="computedClasses.background"
   >
     <Settings :computed-classes="computedClasses" />
@@ -48,6 +50,7 @@ const toggleSeeForecast = () => {
     />
     <div
       v-if="weather.forecast"
+      :class="{ flex: seeForecast }"
       class="flex w-full overflow-x-scroll overscroll-contain flex-col h-full mb-2 rounded-xl"
     >
       <Transition
