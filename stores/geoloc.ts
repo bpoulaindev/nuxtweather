@@ -39,7 +39,7 @@ export const useGeoloc = defineStore("geoloc", {
           timeout: 5000,
           maximumAge: 20 * 60 * 1000,
         });
-        console.log("updating position", position);
+        console.log("updating position", position, permission.state);
         this.coords = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
