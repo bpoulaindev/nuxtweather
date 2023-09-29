@@ -1,7 +1,7 @@
 import { computed, ComputedRef } from "vue";
-import { ComputedClasses } from "utils/types/classes";
+import { ComputedClasses } from "@utils/types/classes";
 import { storeToRefs } from "pinia";
-import { useTheme } from "~/stores/theme";
+import { useTheme } from "@stores/theme";
 
 const imageUrls = {
   ocean:
@@ -164,10 +164,10 @@ export const useComputedClasses = (
       return themedClasses.lavender;
     } else if (currentTemp < 15 || isRaining) {
       return themedClasses.mint;
-    } else if (currentTemp >= 15) {
-      return themedClasses.apricot;
     } else if (currentTemp >= 25) {
       return themedClasses.cherry;
+    } else if (currentTemp >= 15) {
+      return themedClasses.apricot;
     } else {
       return themedClasses.lavender;
     }

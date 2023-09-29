@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
-import { ComputedClasses } from "utils/types/classes";
-import { ForecastData, HourForecast } from "~/utils/types/weather";
-import SmallForecast from "~/components/weather/forecast/small_forecast/SmallForecast.vue";
+import { ComputedClasses } from "@utils/types/classes";
+import { ForecastData, HourForecast } from "@utils/types/weather";
+import SmallForecast from "@components/weather/forecast/small_forecast/SmallForecast.vue";
 
 const props = defineProps<{
   forecast: ForecastData;

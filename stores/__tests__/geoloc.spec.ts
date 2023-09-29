@@ -1,15 +1,9 @@
-/* import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, test } from "vitest";
 import { createPinia, setActivePinia, storeToRefs } from "pinia";
-import { useGeoloc } from "stores/geoloc";
-import { initTestEnvironment } from "stores/__tests__/init";
+import { useGeoloc } from "@stores/geoloc";
+import { initTestEnvironment } from "@stores/__tests__/init";
 
 describe("Geoloc Store", () => {
-  const { localStorageMock, mockedGeolocation } = initTestEnvironment();
-  Object.defineProperty(global, "localStorage", { value: localStorageMock });
-  Object.defineProperty(global.navigator, "geolocation", {
-    writable: true,
-    value: mockedGeolocation,
-  });
   beforeEach(() => {
     setActivePinia(createPinia());
   });
@@ -19,13 +13,11 @@ describe("Geoloc Store", () => {
     geolocStore.$reset();
   });
   test("fetchGeoloc should set coords", async () => {
-    Object.defineProperty(global.navigator, "permissions", {
+    const { localStorageMock, mockedGeolocation } = initTestEnvironment(false);
+    Object.defineProperty(global, "localStorage", { value: localStorageMock });
+    Object.defineProperty(global.navigator, "geolocation", {
       writable: true,
-      value: {
-        query: vi
-          .fn()
-          .mockImplementation(() => Promise.resolve({ state: "granted" })),
-      },
+      value: mockedGeolocation,
     });
     const geolocStore = useGeoloc();
     const { coords } = storeToRefs(geolocStore);
@@ -33,13 +25,11 @@ describe("Geoloc Store", () => {
     expect(coords.value).not.toBeNull();
   });
   test("fetchGeoloc should set error", async () => {
-    Object.defineProperty(global.navigator, "permissions", {
+    const { localStorageMock, mockedGeolocation } = initTestEnvironment(true);
+    Object.defineProperty(global, "localStorage", { value: localStorageMock });
+    Object.defineProperty(global.navigator, "geolocation", {
       writable: true,
-      value: {
-        query: vi
-          .fn()
-          .mockImplementation(() => Promise.resolve({ state: "denied" })),
-      },
+      value: mockedGeolocation,
     });
     const geolocStore = useGeoloc();
     const { error } = storeToRefs(geolocStore);
@@ -47,4 +37,3 @@ describe("Geoloc Store", () => {
     expect(error.value).not.toBeNull();
   });
 });
-*/

@@ -65,5 +65,18 @@ describe("Weather Store", () => {
     cy.get("[data-cy=settings-close]").should("exist").click();
     cy.findByText("Océan").should("not.exist");
     cy.findByText("Lille").should("have.class", "text-blue-800");
+    cy.visit("/", {
+      onBeforeLoad({ navigator }) {
+        const latitude = 43.3;
+        const longitude = 5.4;
+        localStorage.setItem("WEATHER", "{}");
+        localStorage.setItem("GEOLOC", "{}");
+        cy.stub(localStorage, "getItem").returns({});
+        cy.stub(navigator.geolocation, "watchPosition").callsArgWith(0, {
+          coords: { latitude, longitude },
+        });
+      },
+    });
+    cy.findByText("Marseille").should("exist");
   });
 });

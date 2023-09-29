@@ -8,8 +8,8 @@ import {
   PopoverTrigger,
 } from "radix-vue";
 import { Cog6ToothIcon, XMarkIcon } from "@heroicons/vue/20/solid";
-import { ComputedClasses } from "~/utils/types/classes";
-import ThemesSwitcher from "~/components/settings/themes_switcher/ThemesSwitcher.vue";
+import { ComputedClasses } from "@utils/types/classes";
+import ThemesSwitcher from "@components/settings/themes_switcher/ThemesSwitcher.vue";
 
 const props = defineProps<{
   computedClasses: ComputedClasses;
