@@ -29,12 +29,21 @@ const toggleSeeForecast = () => {
   seeForecast.value = !seeForecast.value;
 };
 const { width, height } = useWindowSize();
-const bgTransitionClasses = ref("");
+const bgTransitionClasses = ref("blur-lg");
+setTimeout(
+  () => {
+    bgTransitionClasses.value = "";
+  },
+  width.value > 640 ? 500 : 200,
+);
 watch(computedClasses, (newClasses) => {
   bgTransitionClasses.value = "blur-lg";
-  setTimeout(() => {
-    bgTransitionClasses.value = "";
-  }, 500);
+  setTimeout(
+    () => {
+      bgTransitionClasses.value = "";
+    },
+    width.value > 640 ? 500 : 200,
+  );
 });
 const dynamicSrc = computed(() => {
   return width.value > 640
@@ -54,7 +63,7 @@ const dynamicSrc = computed(() => {
       :src="dynamicSrc"
       :alt="`background image for ${weather.location.name}`"
       :class="bgTransitionClasses"
-      class="ease-out duration-500 absolute top-0 left-0 h-[calc(100dvh)] max-h-[calc(100dvh)] w-[calc(100dvw)] object-cover object-center z-[-1]"
+      class="ease-out duration-300 sm:duration-500 absolute top-0 left-0 h-[calc(100dvh)] max-h-[calc(100dvh)] w-[calc(100dvw)] object-cover object-center z-[-1]"
     />
     <Settings :computed-classes="computedClasses" />
     <CurrentWeather2
