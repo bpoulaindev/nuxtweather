@@ -26,12 +26,13 @@ const store = useGeoloc();
 const { coords, error, permission } = storeToRefs(store);
 onMounted(async () => {
   await store.initializeState();
-  watch(permission, async (newPermission) => {
+  await store.fetchGeoloc();
+  /* watch(permission, async (newPermission) => {
     console.log("triggering watch", permission.value, newPermission);
     if (newPermission === "granted") {
       await store.fetchGeoloc();
     }
-  });
+  }); */
 });
 </script>
 
