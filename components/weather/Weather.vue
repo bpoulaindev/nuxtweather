@@ -29,6 +29,13 @@ const toggleSeeForecast = () => {
   seeForecast.value = !seeForecast.value;
 };
 const { width, height } = useWindowSize();
+const bgTransitionClasses = ref("");
+watch(computedClasses, (newClasses) => {
+  bgTransitionClasses.value = "blur-lg";
+  setTimeout(() => {
+    bgTransitionClasses.value = "";
+  }, 500);
+});
 </script>
 
 <template>
@@ -39,12 +46,13 @@ const { width, height } = useWindowSize();
     :class="computedClasses.background"
   >
     <NuxtImg
-      class="absolute top-0 left-0 w-full h-full h-[calc(100dvh)] max-h-[calc(100dvh)] w-auto object-cover object-center z-[-1]"
+      class="ease-out duration-500 absolute top-0 left-0 w-full h-full h-[calc(100dvh)] max-h-[calc(100dvh)] w-auto object-cover object-center z-[-1]"
       :src="
         width > 640
           ? computedClasses.background.desktop
           : computedClasses.background.mobile
       "
+      :class="bgTransitionClasses"
       gravity="center"
       :height="height"
       :alt="`background image for ${weather.location.name}`"

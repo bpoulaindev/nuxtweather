@@ -15,11 +15,13 @@ export const useGeoloc = defineStore("geoloc", {
   }),
   actions: {
     async initializeState() {
+      console.log("initializing state");
       try {
         this.recycleLocalStorage();
         const permission = await navigator.permissions.query({
           name: "geolocation",
         });
+        console.log("initializing state", permission.state);
         this.permission = permission.state;
       } catch (error) {
         this.error = error as GeolocationPositionError;
@@ -31,11 +33,13 @@ export const useGeoloc = defineStore("geoloc", {
         const permission = await navigator.permissions.query({
           name: "geolocation",
         });
+        console.log("updating permission", permission.state);
         const position = await this.getPosition({
           enableHighAccuracy: true,
           timeout: 5000,
           maximumAge: 20 * 60 * 1000,
         });
+        console.log("updating position", position);
         this.coords = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -47,6 +51,7 @@ export const useGeoloc = defineStore("geoloc", {
       }
     },
     async fetchGeoloc() {
+      console.log("fetching geoloc");
       const options = {
         enableHighAccuracy: true,
         timeout: 5000,
@@ -54,7 +59,9 @@ export const useGeoloc = defineStore("geoloc", {
       };
       try {
         if (this.permission === "prompt" || this.permission === "granted") {
+          console.log("permission was granted");
           const position = await this.getPosition(options);
+          console.log("position fetched", position);
           this.coords = {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
@@ -62,6 +69,7 @@ export const useGeoloc = defineStore("geoloc", {
           this.recycleLocalStorage();
           this.updateLocalStorage();
         } else if (this.permission === "denied") {
+          console.log("permission was denied");
           this.error = {
             code: 1,
             message: "Geolocation permission denied",
@@ -73,6 +81,7 @@ export const useGeoloc = defineStore("geoloc", {
       }
     },
     getPosition(options: PositionOptions) {
+      console.log("launching getPosition");
       return new Promise<GeolocationPosition>((resolve, reject) => {
         navigator.geolocation.watchPosition(resolve, reject, options);
       });
