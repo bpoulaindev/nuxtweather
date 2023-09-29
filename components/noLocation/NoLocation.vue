@@ -14,8 +14,8 @@ const { error, permission } = storeToRefs(store);
 const { width, height } = useWindowSize();
 const dynamicSrc = computed(() => {
   return width.value > 640
-    ? "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/home-WoEWQRF1osyhleczdxHEnM4OOHoVm3.webp"
-    : "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/home_xl-Y0NbJmq6ClaQ0w84T05wtl6PgcCcln.webp";
+    ? "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/home_xl-Y0NbJmq6ClaQ0w84T05wtl6PgcCcln.webp"
+    : "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/home-WoEWQRF1osyhleczdxHEnM4OOHoVm3.webp";
 });
 </script>
 
