@@ -31,7 +31,7 @@ export default {
   runtimeConfig: {
     weatherApiKey: process.env.NUXT_WEATHER_API_KEY,
   },
-  modules: ["nuxt-svgo", "@pinia/nuxt", "@nuxt/image"],
+  modules: ["nuxt-svgo", "@pinia/nuxt"],
   css: ["@/assets/css/main.css"],
   devServer: {
     port: 3000,
@@ -40,21 +40,5 @@ export default {
   },
   experimental: {
     renderJsonPayloads: false,
-  },
-  image: {
-    screens: {
-      xs: 320,
-      sm: 640,
-      md: 768,
-      lg: 1024,
-      xl: 1280,
-      xxl: 1536,
-      "2xl": 1536,
-    },
-    provider: "cloudinary",
-    cloudinary: {
-      baseURL:
-        "https://res.cloudinary.com/nuxtweather/image/upload/q_auto,f_auto,c_scale",
-    },
   },
 };

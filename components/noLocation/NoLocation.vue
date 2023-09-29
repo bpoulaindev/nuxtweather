@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { MapPinIcon } from "@heroicons/vue/24/solid";
+import { useWindowSize } from "@vueuse/core/index";
 import { useGeoloc } from "~/stores/geoloc";
 import LocationError from "~/components/noLocation/location_error/LocationError.vue";
 
@@ -10,12 +11,23 @@ const props = defineProps<{
 const store = useGeoloc();
 const promptGeoloc = async () => await store.updatePermission();
 const { error, permission } = storeToRefs(store);
+const { width, height } = useWindowSize();
+const dynamicSrc = computed(() => {
+  return width.value > 640
+    ? "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/home-WoEWQRF1osyhleczdxHEnM4OOHoVm3.webp"
+    : "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/home_xl-Y0NbJmq6ClaQ0w84T05wtl6PgcCcln.webp";
+});
 </script>
 
 <template>
   <div
-    class="h-[calc(100dvh)] max-h-[calc(100dvh)] flex flex-col w-[calc(100dvw)] items-center relative px-2 sm:px-10 bg-cover bg-center bg-no-repeat !bg-[url('/assets/background/home_xl.png')]"
+    class="h-[calc(100dvh)] max-h-[calc(100dvh)] flex flex-col w-[calc(100dvw)] items-center relative px-2 sm:px-10"
   >
+    <img
+      :src="dynamicSrc"
+      alt="background image for home screen"
+      class="ease-out duration-500 absolute top-0 left-0 h-[calc(100dvh)] max-h-[calc(100dvh)] w-auto object-cover object-center z-[-1]"
+    />
     <h1 class="flex items-center mt-10 text-orange-800">
       <img
         alt="Nuxt Weather Logo"

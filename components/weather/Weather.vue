@@ -36,6 +36,11 @@ watch(computedClasses, (newClasses) => {
     bgTransitionClasses.value = "";
   }, 500);
 });
+const dynamicSrc = computed(() => {
+  return width.value > 640
+    ? computedClasses.value.background.desktop
+    : computedClasses.value.background.mobile;
+});
 </script>
 
 <template>
@@ -45,19 +50,11 @@ watch(computedClasses, (newClasses) => {
     class="data-test=weather-current h-[calc(100dvh)] max-h-[calc(100dvh)] flex flex-col w-[calc(100dvw)] items-center relative px-2 sm:px-10 bg-cover bg-center bg-no-repeat"
     :class="computedClasses.background"
   >
-    <NuxtImg
-      class="ease-out duration-500 absolute top-0 left-0 w-full h-full h-[calc(100dvh)] max-h-[calc(100dvh)] w-auto object-cover object-center z-[-1]"
-      :src="
-        width > 640
-          ? computedClasses.background.desktop
-          : computedClasses.background.mobile
-      "
-      :class="bgTransitionClasses"
-      gravity="center"
-      :height="height"
+    <img
+      :src="dynamicSrc"
       :alt="`background image for ${weather.location.name}`"
-      provider="cloudinary"
-      fit="crop"
+      :class="bgTransitionClasses"
+      class="ease-out duration-500 absolute top-0 left-0 h-[calc(100dvh)] max-h-[calc(100dvh)] w-[calc(100dvw)] object-cover object-center z-[-1]"
     />
     <Settings :computed-classes="computedClasses" />
     <CurrentWeather2

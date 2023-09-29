@@ -3,6 +3,31 @@ import { ComputedClasses } from "utils/types/classes";
 import { storeToRefs } from "pinia";
 import { useTheme } from "~/stores/theme";
 
+const imageUrls = {
+  ocean:
+    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/ocean-eipC2DUW1BSgxMcRBeUr7n9exaIHfP.webp",
+  cherry:
+    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/cherry-arknCb1e3L7w7oh6rX7zo0Hc8pckdt.webp",
+  lavender:
+    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/lavender-9OEWii8FFxztE571po0qkPyjE1cmbX.webp",
+  apricot:
+    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/apricot-XKi587rMme0vxXhPW59hkuuIRYPlKr.webp",
+  apricot_xl:
+    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/apricot_xl-npOKlquWurlNW7nzkyTePKDwiwmeLM.webp",
+  cherry_xl:
+    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/cherry_xl-UWSV67lZd0bY41lR3kTq7ChD8yKR7z.webp",
+  ocean_xl:
+    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/ocean_xl-CIWlODmVApzQugWcbttaQkbRVhNuEl.webp",
+  mint_xl:
+    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/mint_xl-H09yo6KxuLDrY08cC5b3IscVZMjxYx.webp",
+  home: "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/home-WoEWQRF1osyhleczdxHEnM4OOHoVm3.webp",
+  mint: "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/mint-ipK9wTg4wxRxZHoILZQXGD6x4gKKDq.webp",
+  home_xl:
+    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/home_xl-Y0NbJmq6ClaQ0w84T05wtl6PgcCcln.webp",
+  lavender_xl:
+    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/lavender_xl-7M7Zs5iRkGczuXVLJmknOxNWVxKzu0.webp",
+};
+
 export const useComputedClasses = (
   currentTemp: number,
   currentTime: number,
@@ -14,8 +39,8 @@ export const useComputedClasses = (
     const themedClasses = {
       ocean: {
         background: {
-          mobile: "ocean",
-          desktop: "ocean_xl",
+          mobile: imageUrls.ocean,
+          desktop: imageUrls.ocean_xl,
         },
         text: "text-blue-800",
         iconBg: "bg-white/60",
@@ -38,8 +63,8 @@ export const useComputedClasses = (
       },
       cherry: {
         background: {
-          mobile: "cherry",
-          desktop: "cherry_xl",
+          mobile: imageUrls.cherry,
+          desktop: imageUrls.cherry_xl,
         },
         text: "text-red-800",
         iconBg: "bg-white/60",
@@ -62,8 +87,8 @@ export const useComputedClasses = (
       },
       lavender: {
         background: {
-          mobile: "lavender",
-          desktop: "lavender_xl",
+          mobile: imageUrls.lavender,
+          desktop: imageUrls.lavender_xl,
         },
         text: "text-purple-800",
         iconBg: "bg-white/60",
@@ -86,8 +111,8 @@ export const useComputedClasses = (
       },
       mint: {
         background: {
-          mobile: "mint",
-          desktop: "mint_xl",
+          mobile: imageUrls.mint,
+          desktop: imageUrls.mint_xl,
         },
         text: "text-teal-600",
         iconBg: "bg-teal-600/60",
@@ -110,8 +135,8 @@ export const useComputedClasses = (
       },
       apricot: {
         background: {
-          mobile: "apricot",
-          desktop: "apricot_xl",
+          mobile: imageUrls.apricot,
+          desktop: imageUrls.apricot_xl,
         },
         text: "text-orange-800",
         iconBg: "bg-white/50",
