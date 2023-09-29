@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { MapPinIcon } from "@heroicons/vue/24/outline";
+import { MapPinIcon } from "@heroicons/vue/24/solid";
 import { useGeoloc } from "~/stores/geoloc";
 import LocationError from "~/components/noLocation/location_error/LocationError.vue";
 
+const props = defineProps<{
+  storePermission: PermissionStatus["state"];
+}>();
 const store = useGeoloc();
-store.fetchGeoloc();
-const { error } = storeToRefs(store);
+const promptGeoloc = async () => await store.updatePermission();
+const { error, permission } = storeToRefs(store);
 </script>
 
 <template>
@@ -24,9 +27,14 @@ const { error } = storeToRefs(store);
       >
     </h1>
     <div class="flex flex-col w-full items-center mt-10 sm:px-10">
-      <MapPinIcon
-        class="w-6 h-6 xs:w-10 xs:h-10 text-orange-800 animate-bounce"
-      />
+      <button
+        type="button"
+        class="inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        @click="promptGeoloc"
+      >
+        Accéder à ma position
+        <MapPinIcon class="-mr-0.5 h-3 w-3" aria-hidden="true" />
+      </button>
       <div class="p-2 w-auto rounded-xl bg-white shadow-xl mt-5">
         <p class="text-sm xs:text-base text-gray-600 text-center">
           Cette application web a besoin de votre position pour fonctionner.

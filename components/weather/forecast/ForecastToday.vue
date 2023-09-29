@@ -15,9 +15,9 @@ const timestamp = timestampForHour.unix();
 
 <template>
   <div
-    v-if="forecast"
     class="w-full flex rounded-xl items-center p-1 xs:p-2 overflow-x-auto !overflow-y-visible max-h-[100px] xs:max-h-[120px] min-h-[100px] xs:min-h-[120px] h-full"
     :class="computedClasses.cards?.bg"
+    data-cy="forecast-today"
   >
     <div
       v-for="day in forecast.forecastday.slice(0, 3)"
@@ -29,6 +29,7 @@ const timestamp = timestampForHour.unix();
           (data: HourForecast) => data.time_epoch >= timestamp,
         )"
         :key="hour.time_epoch"
+        data-cy="small-forecast"
         :text-color="computedClasses.cards?.text"
         :is-now="hour.time_epoch === timestamp"
         :time="hour.time_epoch"

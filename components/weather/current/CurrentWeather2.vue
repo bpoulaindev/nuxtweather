@@ -28,6 +28,7 @@ const computedText = computed(() => {
   >
     <span
       class="text-3xl xs:text-4xl sm:text-6xl font-semibold font-literata"
+      data-cy="location-name"
       :class="computedClasses.text"
       >{{ location.name }}</span
     >
@@ -39,14 +40,18 @@ const computedText = computed(() => {
     <span
       class="flex items-start text-9xl xs:text-10xl font-semibold sm:font-bold font-sentient pl-3 xs:pl-4"
       :class="computedClasses.text"
+      data-cy="current-temp"
     >
       {{ current.temp_c }}
       <span class="text-7xl inline-flex mt-1">°</span>
     </span>
     <button
       type="button"
+      role="button"
+      name="toggle-forecast"
       class="relative rounded-lg px-2 py-1 text-sm xs:text-base font-semibold shadow-sm"
       :class="computedClasses.button"
+      data-cy="toggle-forecast-button"
       @click="emit('toggleSeeForecast')"
     >
       {{ computedText }}

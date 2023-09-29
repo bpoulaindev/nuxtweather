@@ -13,7 +13,10 @@ export const useComputedClasses = (
     const { theme } = storeToRefs(store);
     const themedClasses = {
       ocean: {
-        background: "!bg-[url('/assets/background/ocean_xl.png')]",
+        background: {
+          mobile: "ocean",
+          desktop: "ocean_xl",
+        },
         text: "text-blue-800",
         iconBg: "bg-white/60",
         button:
@@ -34,7 +37,10 @@ export const useComputedClasses = (
         },
       },
       cherry: {
-        background: "!bg-[url('/assets/background/cherry_xl.png')]",
+        background: {
+          mobile: "cherry",
+          desktop: "cherry_xl",
+        },
         text: "text-red-800",
         iconBg: "bg-white/60",
         button:
@@ -55,7 +61,10 @@ export const useComputedClasses = (
         },
       },
       lavender: {
-        background: "!bg-[url('/assets/background/lavender_xl.png')]",
+        background: {
+          mobile: "lavender",
+          desktop: "lavender_xl",
+        },
         text: "text-purple-800",
         iconBg: "bg-white/60",
         button:
@@ -76,7 +85,10 @@ export const useComputedClasses = (
         },
       },
       mint: {
-        background: "!bg-[url('/assets/background/mint_xl.png')]",
+        background: {
+          mobile: "mint",
+          desktop: "mint_xl",
+        },
         text: "text-teal-600",
         iconBg: "bg-teal-600/60",
         button:
@@ -97,7 +109,10 @@ export const useComputedClasses = (
         },
       },
       apricot: {
-        background: "!bg-[url('/assets/background/apricot_xl.png')]",
+        background: {
+          mobile: "apricot",
+          desktop: "apricot_xl",
+        },
         text: "text-orange-800",
         iconBg: "bg-white/50",
         button:
