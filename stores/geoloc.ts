@@ -44,7 +44,7 @@ export const useGeoloc = defineStore("geoloc", {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         };
-        this.permission = permission.state;
+        this.permission = position ? "granted" : permission.state;
       } catch (error) {
         this.error = error as GeolocationPositionError;
         console.error("Error updating permission:", error);
