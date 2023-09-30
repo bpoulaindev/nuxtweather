@@ -28,28 +28,6 @@ export const useGeoloc = defineStore("geoloc", {
         console.error("Error reading permission:", error);
       }
     },
-    async updatePermission() {
-      try {
-        const permission = await navigator.permissions.query({
-          name: "geolocation",
-        });
-        console.log("updating permission", permission.state);
-        const position = await this.getPosition({
-          enableHighAccuracy: true,
-          timeout: 5000,
-          maximumAge: 20 * 60 * 1000,
-        });
-        console.log("updating position", position, permission.state);
-        this.coords = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        };
-        this.permission = position ? "granted" : permission.state;
-      } catch (error) {
-        this.error = error as GeolocationPositionError;
-        console.error("Error updating permission:", error);
-      }
-    },
     async fetchGeoloc() {
       console.log("fetching geoloc");
       const options = {
@@ -58,8 +36,8 @@ export const useGeoloc = defineStore("geoloc", {
         maximumAge: 20 * 60 * 1000,
       };
       try {
-        if (this.permission === "prompt" || this.permission === "granted") {
-          console.log("permission was granted");
+        if (this.permission !== "denied") {
+          console.log("permission was granted or prompt");
           const position = await this.getPosition(options);
           console.log("position fetched", position);
           this.coords = {
@@ -68,7 +46,7 @@ export const useGeoloc = defineStore("geoloc", {
           };
           this.recycleLocalStorage();
           this.updateLocalStorage();
-        } else if (this.permission === "denied") {
+        } else {
           console.log("permission was denied");
           this.error = {
             code: 1,

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import Weather from "~/components/weather/Weather.vue";
-import { useGeoloc } from "~/stores/geoloc";
-import NoLocation from "~/components/noLocation/NoLocation.vue";
+import Weather from "@components/weather/Weather.vue";
+import { useGeoloc } from "@stores/geoloc";
+import NoLocation from "@components/noLocation/NoLocation.vue";
 
 useHead({
   title: "NuxtWeather",
@@ -26,12 +26,7 @@ const store = useGeoloc();
 const { coords, error, permission } = storeToRefs(store);
 onMounted(async () => {
   await store.initializeState();
-  watch(permission, async (newPermission) => {
-    console.log("triggering watch", permission.value, newPermission);
-    if (newPermission === "granted") {
-      await store.fetchGeoloc();
-    }
-  });
+  await store.fetchGeoloc();
 });
 </script>
 

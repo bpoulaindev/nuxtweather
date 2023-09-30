@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, computed, Ref } from "vue";
-import { Theme } from "utils/types/theme";
+import { computed } from "vue";
+import { Theme } from "@utils/types/theme";
 import { storeToRefs } from "pinia";
-import { ComputedClasses } from "~/utils/types/classes";
-import { useTheme } from "~/stores/theme";
+import { ComputedClasses } from "@utils/types/classes";
+import { useTheme } from "@stores/theme";
 
 const props = defineProps<{
   computedClasses: ComputedClasses;

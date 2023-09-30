@@ -8,8 +8,8 @@ import {
   PopoverTrigger,
 } from "radix-vue";
 import { Cog6ToothIcon, XMarkIcon } from "@heroicons/vue/20/solid";
-import { ComputedClasses } from "~/utils/types/classes";
-import ThemesSwitcher from "~/components/settings/themes_switcher/ThemesSwitcher.vue";
+import { ComputedClasses } from "@utils/types/classes";
+import ThemesSwitcher from "@components/settings/themes_switcher/ThemesSwitcher.vue";
 
 const props = defineProps<{
   computedClasses: ComputedClasses;
@@ -22,6 +22,7 @@ const props = defineProps<{
       class="rounded-full group absolute cursor-pointer top-1 right-1 w-[35px] h-[35px] inline-flex items-center justify-center focus:ring-2 outline-none"
       aria-label="Update dimensions"
       :class="computedClasses.settings.trigger"
+      data-cy="settings-trigger"
     >
       <Cog6ToothIcon
         class="w-4 h-4 rounded-full"
@@ -44,6 +45,7 @@ const props = defineProps<{
           class="rounded-full inline-flex items-center justify-center absolute top-1 right-1 outline-none cursor-pointer"
           aria-label="Close"
           :class="computedClasses.button"
+          data-cy="settings-close"
         >
           <XMarkIcon class="h-3 w-3" :class="computedClasses.settings.icon" />
         </PopoverClose>

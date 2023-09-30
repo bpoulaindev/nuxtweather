@@ -1,17 +1,33 @@
 import { vi } from "vitest";
 
-export const initTestEnvironment = () => {
+export const initTestEnvironment = (forceError: boolean) => {
   const mockedGeolocation = {
     getCurrentPosition: vi.fn((success, _error, _options) => {
-      success({
-        coords: {
-          latitude: 50.63297,
-          longitude: 3.05858,
-          accuracy: 0,
-        },
-      });
+      if (forceError) {
+        _error(new Error("Geolocation error"));
+      } else {
+        success({
+          coords: {
+            latitude: 50.63297,
+            longitude: 3.05858,
+            accuracy: 0,
+          },
+        });
+      }
     }),
-    watchPosition: vi.fn(),
+    watchPosition: vi.fn((success, _error, _options) => {
+      if (forceError) {
+        _error(new Error("Geolocation error"));
+      } else {
+        success({
+          coords: {
+            latitude: 50.63297,
+            longitude: 3.05858,
+            accuracy: 0,
+          },
+        });
+      }
+    }),
   };
   const localStorageMock = (function () {
     let store = {} as Record<string, string>;

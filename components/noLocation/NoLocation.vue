@@ -2,19 +2,19 @@
 import { storeToRefs } from "pinia";
 import { MapPinIcon } from "@heroicons/vue/24/solid";
 import { useWindowSize } from "@vueuse/core/index";
-import { useGeoloc } from "~/stores/geoloc";
-import LocationError from "~/components/noLocation/location_error/LocationError.vue";
+import { useGeoloc } from "@stores/geoloc";
+import LocationError from "@components/noLocation/location_error/LocationError.vue";
 
 const props = defineProps<{
   storePermission: PermissionStatus["state"];
 }>();
 const store = useGeoloc();
 onMounted(async () => {
-  await store.updatePermission();
+  await store.fetchGeoloc();
 });
-const promptGeoloc = async () => await store.updatePermission();
-const { error, permission } = storeToRefs(store);
-const { width, height } = useWindowSize();
+const promptGeoloc = async () => await store.fetchGeoloc();
+const { error } = storeToRefs(store);
+const { width } = useWindowSize();
 const dynamicSrc = computed(() => {
   return width.value > 640
     ? "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/home_xl-Y0NbJmq6ClaQ0w84T05wtl6PgcCcln.webp"

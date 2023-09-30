@@ -1,14 +1,14 @@
 <script async setup lang="ts">
 import dayjs from "dayjs";
 import { ref } from "vue";
-import { useComputedClasses } from "utils/computedClasses";
+import { useComputedClasses } from "@utils/computedClasses";
 import { storeToRefs } from "pinia";
-import { useGeoloc } from "stores/geoloc";
+import { useGeoloc } from "@stores/geoloc";
 import { useWindowSize } from "@vueuse/core";
-import ForecastToday from "~/components/weather/forecast/ForecastToday.vue";
-import Forecast10Days from "~/components/weather/forecast/Forecast10Days.vue";
-import CurrentWeather2 from "~/components/weather/current/CurrentWeather2.vue";
-import { useWeather } from "~/stores/weather";
+import ForecastToday from "@components/weather/forecast/ForecastToday.vue";
+import Forecast10Days from "@components/weather/forecast/Forecast10Days.vue";
+import CurrentWeather2 from "@components/weather/current/CurrentWeather.vue";
+import { useWeather } from "@stores/weather";
 
 const geolocStore = useGeoloc();
 await geolocStore.fetchGeoloc();

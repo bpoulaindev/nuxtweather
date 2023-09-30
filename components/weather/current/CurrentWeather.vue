@@ -1,92 +1,71 @@
 <script setup lang="ts">
-import RainSVG from "assets/icons/rain.svg";
-import WaterSVG from "assets/icons/water.svg";
-import WindSVG from "assets/icons/wind.svg";
-import { CurrentWeatherData, LocationData } from "~/utils/types/weather";
-import SmallCurrent from "~/components/weather/current/small_current/SmallCurrent.vue";
+import dayjs from "dayjs";
+import LocalizedFormat from "dayjs/plugin/localizedFormat";
+import { ComputedClasses } from "@utils/types/classes";
+import { CurrentWeatherData, LocationData } from "@utils/types/weather";
 
 const props = defineProps<{
   location: LocationData;
   current: CurrentWeatherData;
-  computedClasses: {
-    background: string;
-    text: string;
-    iconBg: string;
-  };
+  computedClasses: ComputedClasses;
+  seeForecast: boolean;
 }>();
-const weatherStats = [
-  {
-    icon: "../../../../assets/icons/wind.svg",
-    value: `${props.current.wind_kph} km/h`,
-  },
-  {
-    icon: "../../../../assets/icons/water.svg",
-    value: `${props.current.humidity} %`,
-  },
-  {
-    icon: "../../../../assets/icons/rain.svg",
-    value: `${props.current.precip_mm} mm`,
-  },
-];
+dayjs.extend(LocalizedFormat);
+const emit = defineEmits<{
+  (e: "toggleSeeForecast"): void;
+}>();
+const computedText = computed(() => {
+  return props.seeForecast ? "Masquer les prévisions" : "Voir les prévisions";
+});
 </script>
 
 <template>
   <div
     v-if="location && current && computedClasses"
-    class="mt-4 sm:mt-10 flex flex-col w-full items-center"
+    class="mt-4 sm:mt-10 flex flex-col w-full items-center pb-2"
   >
-    <span class="text-2xl sm:text-3xl" :class="computedClasses.text"
-      >{{ location.name }},</span
-    >
-    <span class="text-xl sm:text-2xl" :class="computedClasses.text">{{
-      location.country
-    }}</span>
-
     <span
-      class="text-7xl sm:text-8xl font-normal sm:font-light mt-1"
+      class="text-3xl xs:text-4xl sm:text-6xl font-semibold font-literata"
+      data-cy="location-name"
       :class="computedClasses.text"
+      >{{ location.name }}</span
     >
-      {{ current.temp_c }}°
+    <span
+      class="text-lg xs:text-xl sm:text-3xl font-base capitalize font-literata mt-1/2"
+      :class="computedClasses.text"
+      >{{ dayjs().locale("fr").format("LLLL").split(`${dayjs().year()}`)?.[0] }}
     </span>
-    <div class="flex items-center mt-1 justify-between">
-      <p
-        class="flex items-center text-sm xs:text-base sm:text-2xl font-light pr-2"
-        :class="computedClasses.text"
-      >
-        <img
-          :src="current.condition.icon"
-          :alt="current.condition.text"
-          class="w-4 h-4 sm:h-8 sm:w-8 mr-1 inline-flex"
-        />
-        {{ current.condition.text }}
-      </p>
-      <span
-        v-if="current.feelslike_c !== current.temp_c"
-        class="px-1 py-0.5 text-sm xs:text-base sm:text-xl font-light rounded-lg font-semibold sm:font-medium border-2 whitespace-nowrap"
-        :class="[
-          current.feelslike_c >= current.temp_c
-            ? 'bg-red-50/70 text-red-800 border-red-200'
-            : 'bg-indigo-50/70 text-indigo-800 border-indigo-200',
-        ]"
-      >
-        Ressenti {{ current.feelslike_c }}°C
-      </span>
-    </div>
-    <div
-      class="p-2 w-full flex bg-white/60 rounded-xl mt-1 items-center justify-between sm:justify-around"
+    <span
+      class="flex items-start text-9xl xs:text-10xl font-semibold sm:font-bold font-sentient pl-3 xs:pl-4"
+      :class="computedClasses.text"
+      data-cy="current-temp"
     >
-      <SmallCurrent
-        v-for="item in weatherStats"
-        :key="item.icon"
-        :classes="{
-          text: '',
-          iconBg: computedClasses.iconBg,
-        }"
-        :icon="item.icon"
-        :value="item.value"
-      />
-    </div>
+      {{ current.temp_c }}
+      <span class="text-7xl inline-flex mt-1">°</span>
+    </span>
+    <button
+      type="button"
+      role="button"
+      name="toggle-forecast"
+      class="relative rounded-lg px-2 py-1 text-sm xs:text-base font-semibold shadow-sm"
+      :class="computedClasses.button"
+      data-cy="toggle-forecast-button"
+      @click="emit('toggleSeeForecast')"
+    >
+      {{ computedText }}
+      <span
+        v-if="!seeForecast"
+        class="absolute -top-0.5 -right-0.5 flex h-2 w-2"
+      >
+        <span
+          class="animate-ping-slow absolute inline-flex h-full w-full rounded-full opacity-75"
+          :class="computedClasses.ping?.bg"
+        ></span>
+        <span
+          class="relative inline-flex rounded-full h-2 w-2"
+          :class="computedClasses.ping?.ping"
+        ></span>
+      </span>
+    </button>
   </div>
 </template>
-
-<style scoped></style>

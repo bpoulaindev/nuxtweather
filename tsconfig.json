@@ -7,23 +7,23 @@
       "cypress",
       "vitest/globals",
       "@testing-library/cypress"
-    ]
-  },
-  "paths": {
-    "utils": [
-      "./utils"
     ],
-    "components": [
-      "components"
-    ],
-    "@": [
-      "~/"
-    ],
-    "assets": [
-      "./assets"
-    ],
-    "stores": [
-      "./stores"
-    ]
+    "paths": {
+      "@utils/*": [
+        "./utils/*"
+      ],
+      "@components/*": [
+        "./components/*"
+      ],
+      "@stores/*": [
+        "./stores/*"
+      ],
+      "@assets/*": [
+        "./assets/*"
+      ],
+      "@": [
+        "./"
+      ]
+    }
   }
 }

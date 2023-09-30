@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-import { ForecastTodayData } from "utils/types/weather";
+import { ForecastTodayData } from "@utils/types/weather";
 import dayjs from "dayjs";
-import { useGeoloc } from "~/stores/geoloc";
+import { useGeoloc } from "@stores/geoloc";
 
 interface LocalWeatherStore {
   weather: ForecastTodayData | null;
