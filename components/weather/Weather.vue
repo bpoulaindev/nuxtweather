@@ -1,10 +1,10 @@
 <script async setup lang="ts">
 import dayjs from "dayjs";
 import { ref } from "vue";
-import { useComputedClasses } from "@utils/computedClasses";
 import { storeToRefs } from "pinia";
-import { useGeoloc } from "@stores/geoloc";
 import { useWindowSize } from "@vueuse/core";
+import { useComputedClasses } from "@utils/computedClasses";
+import { useGeoloc } from "@stores/geoloc";
 import ForecastToday from "@components/weather/forecast/ForecastToday.vue";
 import Forecast10Days from "@components/weather/forecast/Forecast10Days.vue";
 import CurrentWeather2 from "@components/weather/current/CurrentWeather.vue";
@@ -28,7 +28,7 @@ const seeForecast = ref(false);
 const toggleSeeForecast = () => {
   seeForecast.value = !seeForecast.value;
 };
-const { width, height } = useWindowSize();
+const { width } = useWindowSize();
 const bgTransitionClasses = ref("blur-lg");
 setTimeout(
   () => {
@@ -36,7 +36,7 @@ setTimeout(
   },
   width.value > 640 ? 500 : 200,
 );
-watch(computedClasses, (newClasses) => {
+watch(computedClasses, () => {
   bgTransitionClasses.value = "blur-lg";
   setTimeout(
     () => {

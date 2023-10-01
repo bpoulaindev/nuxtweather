@@ -25,7 +25,7 @@ const computedText = computed(() => {
     class="mt-4 sm:mt-10 flex flex-col w-full items-center pb-2"
   >
     <span
-      class="text-3xl xs:text-4xl sm:text-6xl font-semibold font-literata"
+      class="text-3xl xs:text-4xl sm:text-6xl font-semibold font-literata text-center"
       data-cy="location-name"
       :class="computedClasses.text"
       >{{ location.name }}</span
@@ -33,7 +33,13 @@ const computedText = computed(() => {
     <span
       class="text-lg xs:text-xl sm:text-3xl font-base capitalize font-literata mt-1/2"
       :class="computedClasses.text"
-      >{{ dayjs().locale("fr").format("LLLL").split(`${dayjs().year()}`)?.[0] }}
+      >{{
+        dayjs()
+          .locale("fr")
+          .format("LLLL")
+          .split(`${dayjs().year()}`)?.[0]
+          .slice(0, -2)
+      }}
     </span>
     <span
       class="flex items-start text-9xl xs:text-10xl font-semibold sm:font-bold font-sentient pl-3 xs:pl-4"

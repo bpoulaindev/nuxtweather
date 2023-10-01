@@ -2,6 +2,7 @@
 import { storeToRefs } from "pinia";
 import { MapPinIcon } from "@heroicons/vue/24/solid";
 import { useWindowSize } from "@vueuse/core/index";
+import { reload } from "vite-node/hmr";
 import { useGeoloc } from "@stores/geoloc";
 import LocationError from "@components/noLocation/location_error/LocationError.vue";
 
@@ -12,7 +13,10 @@ const store = useGeoloc();
 onMounted(async () => {
   await store.fetchGeoloc();
 });
-const promptGeoloc = async () => await store.fetchGeoloc();
+const promptGeoloc = async () => {
+  await store.fetchGeoloc();
+  location.reload();
+};
 const { error } = storeToRefs(store);
 const { width } = useWindowSize();
 const dynamicSrc = computed(() => {
@@ -25,12 +29,12 @@ const dynamicSrc = computed(() => {
 <template>
   <div
     :class="error ? '' : 'blur-lg'"
-    class="ease-out duration-300 sm:duration-500 h-[calc(100dvh)] max-h-[calc(100dvh)] flex flex-col w-[calc(100dvw)] items-center relative px-2 sm:px-10"
+    class="bg-gradient-to-br from-orange-100 to-amber-100 ease-out duration-300 sm:duration-500 h-[calc(100dvh)] max-h-[calc(100dvh)] flex flex-col w-[calc(100dvw)] items-center relative px-2 sm:px-10"
   >
     <img
       :src="dynamicSrc"
       alt="background image for home screen"
-      class="absolute top-0 left-0 h-[calc(100dvh)] max-h-[calc(100dvh)] w-[calc(100dvw)] w-auto object-cover object-center z-[-1]"
+      class="absolute top-0 left-0 h-[calc(100dvh)] max-h-[calc(100dvh)] w-[calc(100dvw)] object-cover object-center z-[-1]"
     />
     <h1 class="flex items-center mt-10 text-orange-800">
       <img
