@@ -38,13 +38,15 @@ export const useGeoloc = defineStore("geoloc", {
       try {
         if (this.permission !== "denied") {
           console.log("permission was granted or prompt");
-          const position = await this.getPosition(options);
-          console.log("position fetched", position);
-          this.coords = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          };
           this.recycleLocalStorage();
+          if (!this.coords) {
+            const position = await this.getPosition(options);
+            console.log("position fetched", position);
+            this.coords = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            };
+          }
           this.updateLocalStorage();
         } else {
           console.log("permission was denied");

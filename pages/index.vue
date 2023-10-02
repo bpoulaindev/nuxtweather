@@ -32,7 +32,7 @@ onMounted(async () => {
 
 <template>
   <Suspense>
-    <Suspense v-if="permission === 'granted'">
+    <Suspense v-if="coords">
       <client-only>
         <Weather />
       </client-only>
