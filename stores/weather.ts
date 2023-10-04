@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import { ForecastTodayData } from "@utils/types/weather";
 import dayjs from "dayjs";
+import { ForecastTodayData } from "@utils/types/weather";
 import { useGeoloc } from "@stores/geoloc";
 
 interface LocalWeatherStore {
@@ -15,7 +15,6 @@ export const useWeather = defineStore("weather", {
   actions: {
     async fetchWeather() {
       const { coords } = useGeoloc();
-      console.log("please make it work", coords);
       if (!coords) {
         return;
       }

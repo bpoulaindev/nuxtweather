@@ -1,31 +1,29 @@
 import { computed, ComputedRef } from "vue";
-import { ComputedClasses } from "@utils/types/classes";
 import { storeToRefs } from "pinia";
+import { ComputedClasses } from "@utils/types/classes";
 import { useTheme } from "@stores/theme";
+import Ocean from "@assets/backgrounds/ocean.webp";
+import Cherry from "@assets/backgrounds/cherry.webp";
+import Lavender from "@assets/backgrounds/lavender.webp";
+import Apricot from "@assets/backgrounds/apricot.webp";
+import Mint from "@assets/backgrounds/mint.webp";
+import OceanXl from "@assets/backgrounds/ocean_xl.webp";
+import CherryXl from "@assets/backgrounds/cherry_xl.webp";
+import LavenderXl from "@assets/backgrounds/lavender_xl.webp";
+import ApricotXl from "@assets/backgrounds/apricot_xl.webp";
+import MintXl from "@assets/backgrounds/mint_xl.webp";
 
 const imageUrls = {
-  ocean:
-    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/ocean-eipC2DUW1BSgxMcRBeUr7n9exaIHfP.webp",
-  cherry:
-    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/cherry-arknCb1e3L7w7oh6rX7zo0Hc8pckdt.webp",
-  lavender:
-    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/lavender-9OEWii8FFxztE571po0qkPyjE1cmbX.webp",
-  apricot:
-    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/apricot-XKi587rMme0vxXhPW59hkuuIRYPlKr.webp",
-  apricot_xl:
-    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/apricot_xl-npOKlquWurlNW7nzkyTePKDwiwmeLM.webp",
-  cherry_xl:
-    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/cherry_xl-UWSV67lZd0bY41lR3kTq7ChD8yKR7z.webp",
-  ocean_xl:
-    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/ocean_xl-CIWlODmVApzQugWcbttaQkbRVhNuEl.webp",
-  mint_xl:
-    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/mint_xl-H09yo6KxuLDrY08cC5b3IscVZMjxYx.webp",
-  home: "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/home-WoEWQRF1osyhleczdxHEnM4OOHoVm3.webp",
-  mint: "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/mint-ipK9wTg4wxRxZHoILZQXGD6x4gKKDq.webp",
-  home_xl:
-    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/home_xl-Y0NbJmq6ClaQ0w84T05wtl6PgcCcln.webp",
-  lavender_xl:
-    "https://tgkqesqgdthatxyd.public.blob.vercel-storage.com/lavender_xl-7M7Zs5iRkGczuXVLJmknOxNWVxKzu0.webp",
+  ocean: Ocean,
+  cherry: Cherry,
+  lavender: Lavender,
+  apricot: Apricot,
+  apricot_xl: ApricotXl,
+  cherry_xl: CherryXl,
+  ocean_xl: OceanXl,
+  mint_xl: MintXl,
+  mint: Mint,
+  lavender_xl: LavenderXl,
 };
 
 export const useComputedClasses = (

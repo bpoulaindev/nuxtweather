@@ -1,63 +1,27 @@
-# Nuxt 3 Minimal Starter
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+# Nuxt Weather
 
-## Setup
+Vue 3 / Nuxt 3 project using Weather API and running on Vercel
 
-Make sure to install the dependencies:
 
-```bash
-# npm
-npm install
 
-# pnpm
-pnpm install
 
-# yarn
-yarn install
-```
+## Demo
 
-## Development Server
+https://weatherr.fr
 
-Start the development server on `http://localhost:3000`:
+
+## Run Locally
+
+Install dependencies
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
+  bun install
 ```
 
-## Production
-
-Build the application for production:
+Start the server
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
+  bun dev
 ```
 
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
